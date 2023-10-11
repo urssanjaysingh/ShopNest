@@ -109,3 +109,22 @@ font-family: 'Poppins', sans-serif; */
   height: 70vh;
   flex-direction: column;
 }
+
+.instructions {
+  font-size: 0.8rem; /* Slightly increased font size */
+  border-radius: 8px; /* Slightly increased border radius */
+  background: #333;
+  color: #fff;
+  padding: 0.25rem 0.5rem; /* Adjusted padding */
+  position: relative;
+  bottom: -10px;
+}
+
+.instructions > svg {
+  margin-right: 0.25rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}

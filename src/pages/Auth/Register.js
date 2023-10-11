@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import API_URL from '../../api/apiConfig';
+
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -11,13 +15,58 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+
+    // State variables for form validation
+    const [emailValid, setEmailValid] = useState(true);
+    const [passwordValid, setPasswordValid] = useState(true);
+    const [phoneValid, setPhoneValid] = useState(true);
+
+    // Validation messages
+    const [emailMessage, setEmailMessage] = useState("");
+    const [passwordMessage, setPasswordMessage] = useState("");
+    const [phoneMessage, setPhoneMessage] = useState("");
+
     const navigate = useNavigate();
+
+    const handleEmailChange = (newEmail) => {
+        // Validate email
+        const emailRegex = EMAIL_REGEX;
+        setEmail(newEmail);
+        setEmailValid(emailRegex.test(newEmail));
+        setEmailMessage(emailRegex.test(newEmail) ? "" : "Please enter a valid email address.");
+    };
+
+    const handlePasswordChange = (newPassword) => {
+        // Validate password
+        const passwordRegex = PWD_REGEX;
+        setPassword(newPassword);
+        setPasswordValid(passwordRegex.test(newPassword));
+        setPasswordMessage(
+            passwordRegex.test(newPassword)
+                ? ""
+                : "Password must be 8-24 characters and include lowercase, uppercase, number, and special character."
+        );
+    };
+
+    const handlePhoneChange = (newPhone) => {
+        // Validate phone number (length of 10 digits)
+        const phoneRegex = /^\d{10}$/;
+        setPhone(newPhone);
+        setPhoneValid(phoneRegex.test(newPhone));
+        setPhoneMessage(phoneRegex.test(newPhone) ? "" : "Phone number must be 10 digits.");
+    };
 
     // form function
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Check if any input is invalid
+        if (!emailValid || !passwordValid || !phoneValid) {
+            return;
+        }
+
         try {
-            const res = await axios.post('/api/v1/auth/register', {
+            const res = await axios.post(`${API_URL}/api/v1/auth/register`, {
                 name,
                 email,
                 password,
@@ -51,6 +100,7 @@ const Register = () => {
                                     <input
                                         type="text"
                                         value={name}
+                                        autoComplete="off"
                                         onChange={(e) => setName(e.target.value)}
                                         className="form-control"
                                         id="name"
@@ -62,39 +112,49 @@ const Register = () => {
                                     <input
                                         type="email"
                                         value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="form-control"
+                                        autoComplete="off"
+                                        onChange={(e) => handleEmailChange(e.target.value)}
+                                        className={`form-control ${emailValid ? "" : "is-invalid"}`}
                                         id="email"
                                         placeholder="Email"
                                         required
                                     />
+                                    {/* Display email validation message */}
+                                    {emailMessage && <div className="invalid-feedback">{emailMessage}</div>}
                                 </div>
                                 <div className="mb-3">
                                     <input
                                         type="password"
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="form-control"
+                                        autoComplete="off"
+                                        onChange={(e) => handlePasswordChange(e.target.value)}
+                                        className={`form-control ${passwordValid ? "" : "is-invalid"}`}
                                         id="password"
                                         placeholder="Password"
                                         required
                                     />
+                                    {/* Display password validation message */}
+                                    {passwordMessage && <div className="invalid-feedback">{passwordMessage}</div>}
                                 </div>
                                 <div className="mb-3">
                                     <input
                                         type="tel"
                                         value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        className="form-control"
+                                        autoComplete="off"
+                                        onChange={(e) => handlePhoneChange(e.target.value)}
+                                        className={`form-control ${phoneValid ? "" : "is-invalid"}`}
                                         id="phone"
                                         placeholder="Phone"
                                         required
                                     />
+                                    {/* Display phone validation message */}
+                                    {phoneMessage && <div className="invalid-feedback">{phoneMessage}</div>}
                                 </div>
                                 <div className="mb-3">
                                     <input
                                         type="text"
                                         value={address}
+                                        autoComplete="off"
                                         onChange={(e) => setAddress(e.target.value)}
                                         className="form-control"
                                         id="address"
