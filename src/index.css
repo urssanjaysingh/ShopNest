@@ -9,15 +9,21 @@
 /* font-family: 'Playfair Display', serif;
 font-family: 'Poppins', sans-serif; */
 
-/* Navbar css */
+/* Navbar CSS */
 .navbar {
   font-family: 'Poppins', sans-serif;
-  font-size: 17px;
-  line-height: 26px;
+  font-size: 18px;
+  line-height: 1.5;
   text-transform: uppercase;
-  box-shadow: 0 8px 6px -6px gray;
-  --webkit-box-shadow: 0 8px 6px -6px gray;
-  border-bottom: 0px solid gray !important;
+  background-color: #fff; /* Light background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Smoother box shadow */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+}
+
+/* Hover effect */
+.navbar:hover {
+  background-color: #f7f7f7; /* Slightly change background on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Smoother box shadow on hover */
 }
 
 .nav-link {
@@ -36,26 +42,35 @@ font-family: 'Poppins', sans-serif; */
 
 /* Footer */
 .footer {
-  color: white;
-  padding: 15px; /* Reduced padding */
-  background: #333; /* Change the background color to a dark gray */
-  background: -webkit-linear-gradient(to right, #333, #222); /* Gradient background */
+  background: #222; /* Dark background color */
+  text-align: center; /* Center align the content */
+
+  /* Add a gradient background */
   background: linear-gradient(to right, #333, #222);
 }
 
 .footer a {
   text-decoration: none;
-  color: #f5a623; /* Change link text color to a yellowish color */
-  padding: 5px; /* Reduced padding */
-  font-size: 14px; /* Reduced font size */
-  transition: color 0.2s, border-bottom 0.2s;
+  color: #f5a623; /* Yellowish link text color */
+  font-size: 16px; /* Slightly larger font size */
+  transition: color 0.3s; /* Slightly slower color transition */
+  border-bottom: 1px solid transparent; /* Initially, no border */
 }
 
 .footer a:hover {
-  color: #ffefba;
-  border-bottom: 1px solid #ffefba;
+  color: #ffefba; /* Light yellowish color on hover */
+  border-bottom: 1px solid #ffefba; /* Add a bottom border on hover */
 }
 
+/* Add smooth hover effect */
+.footer a:hover {
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+/* Add subtle box shadow on hover */
+.footer a:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 /* Page Not Found */
 .pnf {

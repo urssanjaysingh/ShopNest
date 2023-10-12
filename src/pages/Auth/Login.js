@@ -1,38 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import API_URL from '../../api/apiConfig';
+import { useAuth } from '../../context/auth';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
-
-    // State variables for form validation
-    const [emailValid, setEmailValid] = useState(true);
-    const [passwordValid, setPasswordValid] = useState(true);
-
-    const handleEmailChange = (newEmail) => {
-        setEmail(newEmail);
-        setEmailValid(newEmail.trim() !== ""); // Basic email validation, checks if it's not empty
-    };
-
-    const handlePasswordChange = (newPassword) => {
-        setPassword(newPassword);
-        setPasswordValid(newPassword.trim() !== ""); // Basic password validation, checks if it's not empty
-    };
+    const location = useLocation();
 
     // form function
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Check if any input is invalid
-        if (!emailValid || !passwordValid) {
-            return;
-        }
 
         try {
             const res = await axios.post(`${API_URL}/api/v1/auth/login`, {
@@ -41,10 +25,14 @@ const Login = () => {
             });
             if (res && res.data.success) {
                 toast.success(res.data && res.data.message);
+                setAuth({
+                    ...auth,
+                    user: res.data.user,
+                    token: res.data.token
+                })
+                localStorage.setItem('auth', JSON.stringify(res.data));
                 // Introduce a delay before navigating to the home page (e.g., 3 seconds)
-                setTimeout(() => {
-                    navigate('/');
-                }, 3000); // Adjust the delay time as needed (in milliseconds)
+                navigate(location.state || '/');
             } else {
                 toast.error(res.data.message);
             }
@@ -71,9 +59,8 @@ const Login = () => {
                                     <input
                                         type="email"
                                         value={email}
-                                        autoComplete="off"
-                                        onChange={(e) => handleEmailChange(e.target.value)}
-                                        className={`form-control ${emailValid ? "" : "is-invalid"}`}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="form-control"
                                         id="email"
                                         placeholder="Email"
                                         required
@@ -84,8 +71,8 @@ const Login = () => {
                                         type="password"
                                         value={password}
                                         autoComplete="off"
-                                        onChange={(e) => handlePasswordChange(e.target.value)}
-                                        className={`form-control ${passwordValid ? "" : "is-invalid"}`}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="form-control"
                                         id="password"
                                         placeholder="Password"
                                         required

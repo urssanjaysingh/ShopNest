@@ -75,10 +75,7 @@ const Register = () => {
             });
             if (res && res.data.success) {
                 toast.success(res.data && res.data.message);
-                // Introduce a delay before navigating to the login page (e.g., 3 seconds)
-                setTimeout(() => {
-                    navigate('/login');
-                }, 3000); // Adjust the delay time as needed (in milliseconds)
+                navigate('/login');
             } else {
                 toast.error(res.data.message);
             }
