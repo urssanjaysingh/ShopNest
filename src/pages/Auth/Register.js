@@ -15,6 +15,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [answer, setAnswer] = useState("");
 
     // State variables for form validation
     const [emailValid, setEmailValid] = useState(true);
@@ -72,6 +73,7 @@ const Register = () => {
                 password,
                 phone,
                 address,
+                answer
             });
             if (res && res.data.success) {
                 toast.success(res.data && res.data.message);
@@ -156,6 +158,18 @@ const Register = () => {
                                         className="form-control"
                                         id="address"
                                         placeholder="Address"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <input
+                                        type="text"
+                                        value={answer}
+                                        autoComplete="off"
+                                        onChange={(e) => setAnswer(e.target.value)}
+                                        className="form-control"
+                                        id="address"
+                                        placeholder="What is Your Favorite Pet Name?"
                                         required
                                     />
                                 </div>

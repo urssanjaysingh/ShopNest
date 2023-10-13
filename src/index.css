@@ -11,7 +11,7 @@ font-family: 'Poppins', sans-serif; */
 
 /* Navbar CSS */
 .navbar {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   line-height: 1.5;
   text-transform: uppercase;
@@ -30,13 +30,17 @@ font-family: 'Poppins', sans-serif; */
   font-weight: 300 !important;
 }
 
+.nav-link-logout {
+  cursor: pointer;
+}
+
 .active {
   border-bottom: 2px solid black;
 }
 
 .navbar-brand {
   font-weight: 700;
-  font-family: 'roboto', sans-serif;
+  font-family: "roboto", sans-serif;
   letter-spacing: 3px;
 }
 

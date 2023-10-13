@@ -1,18 +1,36 @@
-import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
-import { useAuth } from '../../context/auth'
+import React, { useState } from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const Header = () => {
+    const navigate = useNavigate();
     const [auth, setAuth] = useAuth();
+    const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
 
     const handleLogout = () => {
+        setShowLogoutConfirmation(true);
+    }
+
+    const confirmLogout = () => {
+
+        // Perform logout
         setAuth({
-            ...auth, user: null, token: ''
-        })
-        localStorage.removeItem('auth')
+            ...auth,
+            user: null,
+            token: ''
+        });
+        localStorage.removeItem('auth');
+        setShowLogoutConfirmation(false);
+        navigate('/login');
         toast.success('Logout Successfully');
+    }
+
+    const cancelLogout = () => {
+        setShowLogoutConfirmation(false);
     }
 
     return (
@@ -44,7 +62,7 @@ const Header = () => {
                                 ) : (
                                     <>
                                         <li className="nav-item">
-                                            <NavLink to="/login" onClick={handleLogout} className="nav-link">Logout</NavLink>
+                                            <span className="nav-link nav-link-logout" onClick={handleLogout}>Logout</span>
                                         </li>
                                     </>
                                 )
@@ -56,8 +74,25 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
+
+            <Modal show={showLogoutConfirmation} onHide={cancelLogout}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Logout</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to log out?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={cancelLogout}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={confirmLogout}>
+                        Logout
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }
 
-export default Header
+export default Header;
