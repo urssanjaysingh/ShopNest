@@ -3,9 +3,9 @@ import Layout from '../components/Layout/Layout'
 import { useAuth } from '../context/auth'
 
 const HomePage = () => {
-    const [auth, setAuth] = useAuth()
+    const [auth] = useAuth()
     return (
-        <Layout title={"Home-ShopNest"}>
+        <Layout title={"Shopnest - Home"}>
             <h1>Home Page</h1>
             <pre>{JSON.stringify(auth, null, 4)}</pre>
         </Layout>
