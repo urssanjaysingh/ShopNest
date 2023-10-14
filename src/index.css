@@ -44,11 +44,28 @@ font-family: 'Poppins', sans-serif; */
   letter-spacing: 3px;
 }
 
+/* Your CSS file */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+.sticky-footer {
+  background-color: #333; /* Change the background color as needed */
+  color: #fff; /* Change the text color as needed */
+  padding: 10px; /* Adjust padding as needed */
+}
+
 /* Footer */
 .footer {
   background: #222; /* Dark background color */
   text-align: center; /* Center align the content */
-
   /* Add a gradient background */
   background: linear-gradient(to right, #333, #222);
 }

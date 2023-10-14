@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = ({ children, title, description, keywords, author }) => {
     return (
-        <div>
+        <div className="layout-container">
             <Helmet>
                 <meta charSet="utf-8" />
                 <meta name="description" content={description} />
@@ -16,11 +16,11 @@ const Layout = ({ children, title, description, keywords, author }) => {
                 <title>{title}</title>
             </Helmet>
             <Header />
-            <main style={{ minHeight: '70vh', maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+            <main>
                 <ToastContainer />
                 {children}
             </main>
-            <Footer />
+            <Footer className="sticky-footer" />
         </div>
     );
 };
