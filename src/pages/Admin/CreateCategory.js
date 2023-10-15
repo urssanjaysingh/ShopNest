@@ -6,10 +6,28 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import API_URL from '../../api/apiConfig';
 import CategoryForm from '../../components/Form/CategoryForm';
+import { Modal } from 'antd';
 
 const CreateCategory = () => {
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState('')
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selected, setSelected] = useState(null)
+    const [updatedName, setUpdatedName] = useState("")
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState(null);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -18,6 +36,7 @@ const CreateCategory = () => {
             const { data } = await axios.post(`${API_URL}/api/v1/category/create`, { name })
             if (data?.success) {
                 toast.success(`${name} is created`)
+                setName('')
                 getAllCategory()
             } else {
                 toast.error(data.message)
@@ -28,12 +47,59 @@ const CreateCategory = () => {
         }
     }
 
+    const handleUpdate = async (e) => {
+        e.preventDefault()
+        try {
+            const { data } = await axios.put(`${API_URL}/api/v1/category/update/${selected._id}`, { name: updatedName })
+            if (data.success) {
+                toast.success(`${updatedName} is updated`)
+                setSelected(null)
+                setUpdatedName("")
+                handleOk()
+                getAllCategory()
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error('Something went wrong')
+        }
+    }
+
+    const showDeleteModal = (target) => {
+        setDeleteTarget(target);
+        setIsDeleteModalOpen(true);
+    };
+
+    const hideDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setDeleteTarget(null);
+    };
+
+    const handleDeleteConfirm = async (confirmed) => {
+        if (deleteTarget && confirmed) {
+            // Perform the delete operation here
+            try {
+                const { data } = await axios.delete(`${API_URL}/api/v1/category/delete/${deleteTarget._id}`);
+                if (data.success) {
+                    toast.success(`Category is deleted`);
+                    getAllCategory();
+                } else {
+                    toast.error(data.message);
+                }
+            } catch (error) {
+                toast.error('Something went wrong');
+            }
+        }
+        // Close the delete confirmation modal
+        hideDeleteModal();
+    };
+
     //get all categories
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/category/get-all`)
-            if (data.success) {
-                setCategories(data.category)
+            if (data?.success) {
+                setCategories(data?.category)
             }
         } catch (error) {
             console.log(error)
@@ -73,12 +139,62 @@ const CreateCategory = () => {
                                     {categories?.map((c) => (
                                         <tr key={c._id}>
                                             <td>{c.name}</td>
-                                            <td><button className="btn btn-primary">Edit</button></td>
+                                            <td>
+                                                <button
+                                                    className="btn btn-primary ms-2"
+                                                    onClick={() => {
+                                                        showModal();
+                                                        setUpdatedName(c.name);
+                                                        setSelected(c);
+                                                    }}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger ms-2"
+                                                    onClick={() => showDeleteModal(c)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
+                        <Modal
+                            title="Edit Category"
+                            open={isModalOpen}
+                            onOk={(e) => handleUpdate(e)}
+                            onCancel={handleCancel}>
+                            <form onSubmit={handleUpdate}>
+                                <div className="mb-3">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder='Enter new category'
+                                        value={updatedName}
+                                        onChange={(e) => setUpdatedName(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </form>
+                        </Modal>
+                        <Modal
+                            title="Confirm Delete"
+                            open={isDeleteModalOpen}
+                            footer={[
+                                <button key="no" className="btn btn-primary ms-2" onClick={() => handleDeleteConfirm(false)}>
+                                    No
+                                </button>,
+                                <button key="yes" className="btn btn-danger ms-2" onClick={() => handleDeleteConfirm(true)}>
+                                    Yes
+                                </button>,
+                            ]}
+                            onCancel={hideDeleteModal}
+                        >
+                            Are you sure you want to delete this category?
+                        </Modal>
                     </div>
                 </div>
             </div>
