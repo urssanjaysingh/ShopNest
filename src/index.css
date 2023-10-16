@@ -111,14 +111,6 @@ main {
   font-weight: normal;
 }
 
-.pnf-btn {
-  color: #000;
-  border: 1px solid #000;
-  text-decoration: none;
-  padding: 10px;
-  margin-top: 10px;
-}
-
 .contactus {
   margin: 0;
   padding: 0;
@@ -163,4 +155,9 @@ main {
 .offscreen {
   position: absolute;
   left: -9999px;
+}
+
+.product-link {
+  text-decoration: none;
+  color: black !important;
 }

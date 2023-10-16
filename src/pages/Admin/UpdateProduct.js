@@ -5,12 +5,14 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import API_URL from '../../api/apiConfig';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Modal } from 'antd';
 import { Select } from 'antd';
 const { Option } = Select;
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
     const navigate = useNavigate()
+    const params = useParams()
 
     const [categories, setCategories] = useState([])
 
@@ -21,8 +23,34 @@ const CreateProduct = () => {
     const [category, setCategory] = useState('')
     const [quantity, setQuantity] = useState('')
     const [shipping, setShipping] = useState('')
+    const [id, setId] = useState('')
+    const [existingPhoto, setExistingPhoto] = useState('');
 
     const [loading, setLoading] = useState(false);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState(null);
+
+    const getSingleProduct = async () => {
+        try {
+            const { data } = await axios.get(`${API_URL}/api/v1/product/get/${params.slug}`)
+            setId(data.product._id)
+            setName(data.product.name);
+            setDescription(data.product.description);
+            setPrice(data.product.price);
+            setQuantity(data.product.quantity);
+            setShipping(data.product.shipping);
+            setCategory(data.product.category._id);
+            setExistingPhoto(data.product.photo);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getSingleProduct()
+        //eslint-disable-next-line
+    }, [])
 
     //get all categories
     const getAllCategory = async () => {
@@ -41,7 +69,7 @@ const CreateProduct = () => {
         getAllCategory();
     }, [])
 
-    const handleCreate = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
@@ -51,13 +79,13 @@ const CreateProduct = () => {
             productData.append('price', price);
             productData.append('category', category);
             productData.append('quantity', quantity);
-            productData.append('photo', photo);
+            photo && productData.append('photo', photo);
             productData.append('shipping', shipping);
 
-            const { data } = await axios.post(`${API_URL}/api/v1/product/create`, productData);
+            const { data } = await axios.put(`${API_URL}/api/v1/product/update/${id}`, productData);
 
             if (data?.success) {
-                toast.success('Product Created Successfully');
+                toast.success('Product Updated Successfully');
                 navigate('/dashboard/admin/products');
             } else {
                 toast.error(data?.message);
@@ -70,15 +98,44 @@ const CreateProduct = () => {
         }
     }
 
+    const showDeleteModal = (target) => {
+        setDeleteTarget(target);
+        setIsDeleteModalOpen(true);
+    };
+
+    const hideDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setDeleteTarget(null);
+    };
+
+    const handleDeleteConfirm = async (confirmed) => {
+        if (deleteTarget && confirmed) {
+            // Perform the delete operation here
+            try {
+                const { data } = await axios.delete(`${API_URL}/api/v1/product/delete/${deleteTarget}`);
+                if (data.success) {
+                    toast.success(`Product Deleted Successfully`);
+                    navigate('/dashboard/admin/products')
+                } else {
+                    toast.error(data.message);
+                }
+            } catch (error) {
+                toast.error('Something went wrong');
+            }
+        }
+        // Close the delete confirmation modal
+        hideDeleteModal();
+    };
+
     return (
-        <Layout title='Dashboard - Create Product'>
+        <Layout title='Dashboard - Update Product'>
             <div className="container-fluid m-3 p-d">
                 <div className="row">
                     <div className="col-md-3">
                         <AdminMenu />
                     </div>
                     <div className="col-md-9">
-                        <h1>Create Product</h1>
+                        <h1>Update Product</h1>
                         <div className="m-1 w-75">
                             <Select
                                 className='form-control mb-3'
@@ -89,6 +146,7 @@ const CreateProduct = () => {
                                 size='large'
                                 showSearch
                                 onChange={(value) => { setCategory(value) }}
+                                value={category}
                             >
                                 {categories?.map(c => (
                                     <Option key={c._id} value={c._id}>
@@ -109,10 +167,19 @@ const CreateProduct = () => {
                                 </label>
                             </div>
                             <div className="mb-3">
-                                {photo && (
+                                {photo ? (
                                     <div className="text-center">
                                         <img
                                             src={URL.createObjectURL(photo)}
+                                            alt="product_photo"
+                                            height={"200px"}
+                                            className='img img-responsive'
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="text-center">
+                                        <img
+                                            src={existingPhoto}
                                             alt="product_photo"
                                             height={"200px"}
                                             className='img img-responsive'
@@ -169,6 +236,7 @@ const CreateProduct = () => {
                                     onChange={(value) => {
                                         setShipping(value);
                                     }}
+                                    value={shipping ? "Yes" : "No"}
                                 >
                                     <Option value="0">No</Option>
                                     <Option value="1">Yes</Option>
@@ -176,16 +244,38 @@ const CreateProduct = () => {
                             </div>
                             <div className="mb-3">
                                 {loading ? (
-                                    <button className='btn btn-primary' disabled>
-                                        Creating...
-                                    </button>
+                                    <div className="mb-3">
+                                        <button className='btn btn-primary' disabled>
+                                            Updating...
+                                        </button>
+                                    </div>
                                 ) : (
-                                    <button className='btn btn-primary' onClick={handleCreate}>
-                                        Create Product
-                                    </button>
+                                    <>
+                                        <button className='btn btn-primary ms-2' onClick={handleUpdate}>
+                                            Update Product
+                                        </button>
+                                        <button className='btn btn-danger ms-2' onClick={() => showDeleteModal(id)}>
+                                            Delete Product
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </div>
+                        <Modal
+                            title="Confirm Delete"
+                            open={isDeleteModalOpen}
+                            footer={[
+                                <button key="no" className="btn btn-primary ms-2" onClick={() => handleDeleteConfirm(false)}>
+                                    No
+                                </button>,
+                                <button key="yes" className="btn btn-danger ms-2" onClick={() => handleDeleteConfirm(true)}>
+                                    Yes
+                                </button>,
+                            ]}
+                            onCancel={hideDeleteModal}
+                        >
+                            Are you sure you want to delete this category?
+                        </Modal>
                     </div>
                 </div>
             </div>
@@ -193,4 +283,4 @@ const CreateProduct = () => {
     )
 }
 
-export default CreateProduct
+export default UpdateProduct
