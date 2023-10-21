@@ -12,6 +12,8 @@ const HomePage = () => {
     const [categories, setCategories] = useState([])
     const [checked, setChecked] = useState([])
     const [radio, setRadio] = useState([])
+    const [loading, setLoading] = useState(false);
+    const [noMatchingProducts, setNoMatchingProducts] = useState(false);
 
     //get all categories
     const getAllCategory = async () => {
@@ -31,11 +33,18 @@ const HomePage = () => {
 
     const getAllProducts = async () => {
         try {
-            const { data } = await axios.get(`${API_URL}/api/v1/product/get-all`)
+            // Add a brief delay to ensure the loading indicator is visible
+            setTimeout(() => {
+                setLoading(true); // Set loading to true after a brief delay
+            }, 100);
+
+            const { data } = await axios.get(`${API_URL}/api/v1/product/get-all`);
             setProducts(data.products);
         } catch (error) {
-            console.log(error)
-            toast.error('Something went wrong')
+            console.log(error);
+            toast.error('Something went wrong');
+        } finally {
+            setLoading(false); // Set loading back to false
         }
     }
 
@@ -50,33 +59,31 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        if (!checked || !checked.length) {
-            if (!radio.length) {
-                getAllProducts();
-            } else {
-                filterProduct();
-            }
+        // If no categories are selected and no price filter is selected, reload all products
+        if ((!checked || !checked.length) && !radio.length) {
+            getAllProducts();
+            setNoMatchingProducts(false); // Hide the message
         } else {
-            if (radio.length) {
-                filterProduct();
-            }
+            filterProduct();
         }
-        //eslint-disable-next-line
+        // eslint-disable-next-line
     }, [checked, radio]);
-
-    useEffect(() => {
-        if (checked.length || radio.length) filterProduct()
-        //eslint-disable-next-line
-    }, [checked, radio])
 
     const filterProduct = async () => {
         try {
             const { data } = await axios.post(`${API_URL}/api/v1/product/filters`, { checked, radio });
-            setProducts(data?.products);
+
+            if (data.products.length === 0) {
+                setNoMatchingProducts(true); // Show the message
+            } else {
+                setNoMatchingProducts(false); // Hide the message
+            }
+
+            setProducts(data.products);
         } catch (error) {
             console.log('Error while filtering products:', error);
         }
-    }
+    };
 
     return (
         <Layout title={"Shopnest - Home"}>
@@ -106,20 +113,28 @@ const HomePage = () => {
                 </div>
                 <div className="col-md-9">
                     <h1 className='text-center'>All Products</h1>
-                    <div className="d-flex flex-wrap">
-                        {products?.map(p => (
-                            <div className="card m-2" style={{ width: '18rem' }}>
-                                <img src={p.photo} className="card-img-top" alt={p.name} />
-                                <div className="card-body">
-                                    <h5 className="card-title">{p.name}</h5>
-                                    <p className="card-text">{p.description.substring(0, 30)}</p>
-                                    <p className="card-text">$ {p.price}</p>
-                                    <button className="btn btn-primary ms-1">More Details</button>
-                                    <button className="btn btn-secondary ms-1">Add to Cart</button>
+                    {noMatchingProducts ? (
+                        <div className="text-center">No products match the selected filters.</div>
+                    ) : loading ? (
+                        <div className="text-center">Loading...</div>
+                    ) : products.length === 0 ? (
+                        <div className="text-center">No products available.</div>
+                    ) : (
+                        <div className="d-flex flex-wrap">
+                            {products?.map(p => (
+                                <div className="card m-2" style={{ width: '18rem' }}>
+                                    <img src={p.photo} className="card-img-top" alt={p.name} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{p.name}</h5>
+                                        <p className="card-text">{p.description.substring(0, 30)}</p>
+                                        <p className="card-text">$ {p.price}</p>
+                                        <button className="btn btn-primary ms-1">More Details</button>
+                                        <button className="btn btn-secondary ms-1">Add to Cart</button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </Layout>
