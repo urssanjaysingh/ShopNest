@@ -14,6 +14,9 @@ const HomePage = () => {
     const [radio, setRadio] = useState([])
     const [loading, setLoading] = useState(false);
     const [noMatchingProducts, setNoMatchingProducts] = useState(false);
+    const [total, setTotal] = useState(0)
+    const [page, setPage] = useState(1)
+    const [loadingMore, setLoadingMore] = useState(false);
 
     //get all categories
     const getAllCategory = async () => {
@@ -29,22 +32,49 @@ const HomePage = () => {
 
     useEffect(() => {
         getAllCategory();
+        getTotal();
     }, [])
 
     const getAllProducts = async () => {
         try {
-            // Add a brief delay to ensure the loading indicator is visible
-            setTimeout(() => {
-                setLoading(true); // Set loading to true after a brief delay
-            }, 100);
-
-            const { data } = await axios.get(`${API_URL}/api/v1/product/get-all`);
+            setLoading(true)
+            const { data } = await axios.get(`${API_URL}/api/v1/product/product-list/${page}`);
+            setLoading(false);
             setProducts(data.products);
         } catch (error) {
             console.log(error);
+            setLoading(false);
             toast.error('Something went wrong');
         } finally {
             setLoading(false); // Set loading back to false
+        }
+    }
+
+    //get total count
+    const getTotal = async () => {
+        try {
+            const { data } = await axios.get(`${API_URL}/api/v1/product/product-count`)
+            setTotal(data?.total)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        if (page === 1) return;
+        loadMore();
+        //eslint-disable-next-line
+    }, [page])
+
+    const loadMore = async () => {
+        try {
+            setLoadingMore(true); // Set loadingMore to true
+            const { data } = await axios.get(`${API_URL}/api/v1/product/product-list/${page}`);
+            setLoadingMore(false); // Set loadingMore back to false
+            setProducts([...products, ...data?.products])
+        } catch (error) {
+            console.log(error);
+            setLoadingMore(false); // Set loadingMore back to false
         }
     }
 
@@ -116,7 +146,12 @@ const HomePage = () => {
                     {noMatchingProducts ? (
                         <div className="text-center">No products match the selected filters.</div>
                     ) : loading ? (
-                        <div className="text-center">Loading...</div>
+                        <div className="text-center">
+                            <div className="spinner-border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                            <p>Loading products...</p>
+                        </div>
                     ) : products.length === 0 ? (
                         <div className="text-center">No products available.</div>
                     ) : (
@@ -135,6 +170,21 @@ const HomePage = () => {
                             ))}
                         </div>
                     )}
+                    <div className="m-2 p-3">
+                        {products && products.length < total && (
+                            <button
+                                className="btn btn-info"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setPage((prevPage) => prevPage + 1);
+                                    loadMore(); // Load more products
+                                }}
+                                disabled={loadingMore || products.length === total}
+                            >
+                                {loadingMore ? "Loading ..." : "Loadmore"}
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </Layout>
