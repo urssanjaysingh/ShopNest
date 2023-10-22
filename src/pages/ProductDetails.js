@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 const ProductDetails = () => {
     const params = useParams()
     const [product, setProduct] = useState({})
+    const [relatedProducts, setRelatedProducts] = useState([])
 
     useEffect(() => {
         if (params?.slug) getProduct()
@@ -17,6 +18,16 @@ const ProductDetails = () => {
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/product/get/${params.slug}`)
             setProduct(data?.product)
+            getSimilarProduct(data?.product._id, data?.product.category._id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getSimilarProduct = async (pid, cid) => {
+        try {
+            const { data } = await axios.get(`${API_URL}/api/v1/product/related-product/${pid}/${cid}`)
+            setRelatedProducts(data?.products)
         } catch (error) {
             console.log(error)
         }
@@ -25,25 +36,40 @@ const ProductDetails = () => {
     return (
         <Layout>
             <div className="container">
-                <div className="row product">
-                    <div className="col-md-5 col-md-offset-0">
-                        <img
-                            src={product.photo}
-                            className="product-image"
-                            alt={product.name}
-                        />
+                <div className="row product mt-4 mb-4">
+                    <div className="col-md-6" style={{ width: '28rem' }} >
+                        <img src={product.photo} className="img-fluid" alt={product.name} />
                     </div>
-                    <div className="col-md-7">
-                        <h1 className='product-title text-center'>Product Details</h1>
-                        <hr />
-                        <h2>{product.name}</h2>
-                        <p className="product-description">{product.description}</p>
-                        <h3 className="product-price">Price: $ {product.price}</h3>
-                        <button className="btn btn-primary product-button" type="button">Add to cart</button>
-                        <hr />
-                        <div className="row">
-                            <h1 className='product-title text-center'>Similar Products</h1>
+                    <div className="col-md-6 d-flex align-items-center justify-content-center">
+                        <div>
+                            <h2 className="main-product-title">{product.name}</h2>
+                            <p className="product-description">{product.description}</p>
+                            <h3 className="product-price">Price: $ {product.price}</h3>
+                            <h6 className='product-category'>Category: {product?.category?.name}</h6>
+                            <button className="btn btn-primary product-button" type="button">
+                                Add to Cart
+                            </button>
                         </div>
+                    </div>
+                </div>
+                <hr />
+                <div className="row container">
+                    <h4>Similar Products</h4>
+                    {relatedProducts.length < 1 && <p className="text-center">No Similar Product Found</p>}
+                    <div className="d-flex flex-wrap">
+                        {relatedProducts?.map((p) => (
+                            <div className="card m-2" style={{ width: '12rem' }} key={p._id}>
+                                <img src={p.photo} className="card-img-top" alt={p.name} />
+                                <div className="card-body">
+                                    <h6 className="card-title">{p.name}</h6>
+                                    <p className="card-text">{p.description.substring(0, 30)}</p>
+                                    <p className="card-text">$ {p.price}</p>
+                                    <button className="btn btn-secondary" type="button">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
