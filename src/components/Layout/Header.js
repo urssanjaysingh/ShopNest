@@ -6,11 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import SearchInput from '../Form/SearchInput';
+import useCategory from '../../hooks/useCategory';
 
 const Header = () => {
     const navigate = useNavigate();
     const [auth, setAuth] = useAuth();
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
+
+    const categories = useCategory()
 
     const handleLogout = () => {
         setShowLogoutConfirmation(true);
@@ -48,8 +51,31 @@ const Header = () => {
                             <li className="nav-item">
                                 <NavLink to="/" className="nav-link">Home</NavLink>
                             </li>
-                            <li className="nav-item">
-                                <NavLink to="/category" className="nav-link">Category</NavLink>
+                            <li className="nav-item dropdown">
+                                <Link
+                                    className="nav-link dropdown-toggle"
+                                    to={"/categories"}
+                                    data-bs-toggle="dropdown"
+                                >
+                                    Categories
+                                </Link>
+                                <ul className="dropdown-menu">
+                                    <li>
+                                        <Link className='dropdown-item' to={"/categories"}>
+                                            All Categories
+                                        </Link>
+                                    </li>
+                                    {categories?.map((c) => (
+                                        <li key={c.id}>
+                                            <Link
+                                                className="dropdown-item"
+                                                to={`/category/${c.slug}`}
+                                            >
+                                                {c.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
                             </li>
                             {
                                 !auth.user ? (
