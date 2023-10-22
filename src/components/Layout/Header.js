@@ -7,10 +7,13 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import SearchInput from '../Form/SearchInput';
 import useCategory from '../../hooks/useCategory';
+import { useCart } from '../../context/cart';
+import { Badge } from 'antd'
 
 const Header = () => {
     const navigate = useNavigate();
     const [auth, setAuth] = useAuth();
+    const [cart] = useCart()
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
 
     const categories = useCategory()
@@ -104,12 +107,14 @@ const Header = () => {
                                 )
                             }
                             <li className="nav-item">
-                                <NavLink to="/cart" className="nav-link">Cart (0)</NavLink>
+                                <NavLink to="/cart" className="nav-link">
+                                    Cart <Badge count={cart?.length} showZero></Badge>
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav >
 
             <Modal show={showLogoutConfirmation} onHide={cancelLogout}>
                 <Modal.Header closeButton>
