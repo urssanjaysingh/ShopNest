@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from './../components/Layout/Layout'
 import { useCart } from '../context/cart'
 import { useAuth } from '../context/auth'
 import { useNavigate } from 'react-router-dom'
+import DropIn from "braintree-web-drop-in-react";
+import axios from 'axios'
+import API_URL from '../api/apiConfig'
+import { toast } from 'react-toastify'
 
 const CartPage = () => {
     const [auth, setAuth] = useAuth()
     const [cart, setCart] = useCart()
+    const [clientToken, setClientToken] = useState('')
+    const [instanse, setInstance] = useState('')
+    const [loading, setLoading] = useState(false)
+
     const navigate = useNavigate()
 
     const totalPrice = () => {
@@ -31,6 +39,36 @@ const CartPage = () => {
             localStorage.setItem("cart", JSON.stringify(myCart))
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const getToken = async () => {
+        try {
+            const { data } = await axios.get(`${API_URL}/api/v1/product/braintree/token`)
+            setClientToken(data?.clientToken)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getToken()
+    }, [auth?.token])
+
+    const handlePayment = async () => {
+        try {
+            setLoading(true)
+            const { nonce } = await instanse.requestPaymentMethod()
+            const { data } = await axios.post(`${API_URL}/api/v1/product/braintree/payment`, {
+                nonce, cart
+            })
+            setLoading(false)
+            setCart([])
+            navigate('/dashboard/user/orders')
+            toast.success('Payment Completed Successfully')
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
         }
     }
 
@@ -79,6 +117,62 @@ const CartPage = () => {
                         <p>Total | Checkout | Payment</p>
                         <hr />
                         <h4>Total : {totalPrice()}</h4>
+                        {auth?.user?.address ? (
+                            <>
+                                <div className="mb">
+                                    <h5>Current Address</h5>
+                                    <h6>{auth?.user?.address}</h6>
+                                    <button
+                                        className='btn btn-outline-warning'
+                                        onClick={() => navigate('/dashboard/user/profile')}
+                                    >
+                                        Update Address
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="mb-3">
+                                {auth?.token ? (
+                                    <button
+                                        className='btn btn-outline-warning'
+                                        onClick={() => navigate('/dashboard/user/profile')}
+                                    >
+                                        Update Address
+                                    </button>
+                                ) : (
+                                    <button
+                                        className='btn btn-outline-warning'
+                                        onClick={() => navigate('/login', {
+                                            state: '/cart'
+                                        })}
+                                    >
+                                        Please Login To Checkout
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                        <div className="mt-2">
+                            {
+                                !clientToken || !cart?.length ? ("") : (
+                                    <>
+                                        <DropIn
+                                            options={{
+                                                authorization: clientToken,
+                                                paypal: false,
+                                            }}
+                                            onInstance={(instance) => setInstance(instance)}
+                                        />
+                                        <button
+                                            className='btn btn-primary'
+                                            onClick={handlePayment}
+                                            disabled={loading || !instanse || !auth?.user?.address}
+                                        >
+                                            {loading ? "Processing ...." : "Make Payment"}
+                                        </button>
+                                    </>
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

@@ -168,7 +168,7 @@ const Register = () => {
                                         autoComplete="off"
                                         onChange={(e) => setAnswer(e.target.value)}
                                         className="form-control"
-                                        id="address"
+                                        id="answer"
                                         placeholder="What is Your Favorite Pet Name?"
                                         required
                                     />
