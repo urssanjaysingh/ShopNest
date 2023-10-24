@@ -57,9 +57,9 @@ main {
 }
 
 .sticky-footer {
-  background-color: #333; /* Change the background color as needed */
-  color: #fff; /* Change the text color as needed */
-  padding: 10px; /* Adjust padding as needed */
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
 }
 
 /* Footer */
@@ -163,45 +163,45 @@ main {
 }
 
 .product-image {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .product-title {
-    font-size: 24px;
-    color: #333;
+  font-size: 24px;
+  color: #333;
 }
 
 .product-description {
-    font-size: 16px;
-    color: #666;
-    margin-top: 10px;
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
 }
 
 .product-price {
-    font-size: 20px;
-    color: #ff6600;
-    font-weight: bold;
-    margin-top: 10px;
+  font-size: 20px;
+  color: #ff6600;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 .product-category {
-    font-size: 16px;
-    color: #666;
-    margin-top: 10px;
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
 }
 
 .product-button {
-    background-color: #ff6600;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  background-color: #ff6600;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .product-button:hover {
-    background-color: #ff4400;
+  background-color: #ff4400;
 }
