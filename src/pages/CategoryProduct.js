@@ -3,15 +3,18 @@ import Layout from '../components/Layout/Layout'
 import axios from 'axios'
 import API_URL from '../api/apiConfig.js';
 import { useParams, useNavigate } from 'react-router-dom'
+import { useCart } from '../context/cart'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CategoryProduct = () => {
     const params = useParams()
     const navigate = useNavigate()
-
+    const [cart, setCart] = useCart()
     const [products, setProducts] = useState([])
     const [category, setCategory] = useState()
     const [loading, setLoading] = useState(false);
-    
+
     useEffect(() => {
         if (params?.slug) getProductsByCategory()
         //eslint-disable-next-line
@@ -53,16 +56,30 @@ const CategoryProduct = () => {
                                     <div className="card m-2" style={{ width: '18rem' }}>
                                         <img src={p.photo} className="card-img-top" alt={p.name} />
                                         <div className="card-body">
-                                            <h5 className="card-title">{p.name}</h5>
+                                            <div className="product-info d-flex align-items-center justify-content-between">
+                                                <h5 className="card-title ">{p.name}</h5>
+                                                <p className="product-price mb-0 ml-2">₹{p.price}</p>
+                                            </div>
                                             <p className="card-text">{p.description.substring(0, 30)}</p>
-                                            <p className="card-text">$ {p.price}</p>
                                             <button
-                                                className="btn btn-primary ms-1"
+                                                className="btn ms-2 btn-warning"
+                                                onClick={() => {
+                                                    setCart([...cart, p])
+                                                    localStorage.setItem(
+                                                        "cart",
+                                                        JSON.stringify([...cart, p])
+                                                    );
+                                                    toast.success('Item Added to Cart')
+                                                }}
+                                            >
+                                                Add To Cart
+                                            </button>
+                                            <button
+                                                className="btn btn-info ms-2"
                                                 onClick={() => navigate(`/product/${p.slug}`)}
                                             >
                                                 More Details
                                             </button>
-                                            <button className="btn btn-secondary ms-1">Add to Cart</button>
                                         </div>
                                     </div>
                                 ))}

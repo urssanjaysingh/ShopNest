@@ -95,7 +95,7 @@ const AdminOrders = () => {
                           <div className="col-md-9">
                             <p>{p.name}</p>
                             <p>{p.description.substring(0, 30)}</p>
-                            <p>Price : {p.price}</p>
+                            <p>Price : ₹{p.price}</p>
                           </div>
                         </div>
                       ))

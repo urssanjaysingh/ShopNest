@@ -205,3 +205,35 @@ main {
 .product-button:hover {
   background-color: #ff4400;
 }
+
+.product-info .card-title {
+  font-size: 1.2rem; /* Adjust the font size as needed */
+}
+
+.product-info .product-price {
+  font-size: 1.2rem; /* Adjust the font size as needed */
+  color: #ff5733; /* Change the color to your preferred price color */
+}
+
+.product-card {
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  background-color: #f8f8f8; /* Change the background color on hover */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a shadow on hover */
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

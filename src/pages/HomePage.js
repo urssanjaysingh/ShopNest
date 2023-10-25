@@ -123,7 +123,7 @@ const HomePage = () => {
         <Layout title={"Shopnest - Home"}>
             <div className="row">
                 <div className="col-md-3">
-                    <h6 className='text-center'>Filter By Category</h6>
+                    <h5 className='text-center' style={{ marginTop: '70px' }}>Filter By Category</h5>
                     <div className="d-flex flex-column">
                         {categories?.map(c => (
                             <Checkbox key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
@@ -131,7 +131,7 @@ const HomePage = () => {
                             </Checkbox>
                         ))}
                     </div>
-                    <h6 className='text-center mt-4'>Filter By Price</h6>
+                    <h5 className='text-center mt-3'>Filter By Price</h5>
                     <div className="d-flex flex-column">
                         <Radio.Group onChange={e => setRadio(e.target.value)}>
                             {Prices?.map(p => (
@@ -159,22 +159,18 @@ const HomePage = () => {
                     ) : products.length === 0 ? (
                         <div className="text-center">No products available.</div>
                     ) : (
-                        <div className="d-flex flex-wrap">
-                            {products?.map(p => (
-                                <div className="card m-2" style={{ width: '18rem' }}>
+                        <div className="d-flex flex-wrap fade-in">
+                            {products?.map((p, index) => (
+                                <div className="card product-card m-2" style={{ width: '18rem' }} key={index}>
                                     <img src={p.photo} className="card-img-top" alt={p.name} />
                                     <div className="card-body">
-                                        <h5 className="card-title">{p.name}</h5>
+                                        <div className="product-info d-flex align-items-center justify-content-between">
+                                            <h5 className="card-title mb-0">{p.name}</h5>
+                                            <p className="product-price mb-0 ml-2">₹{p.price}</p>
+                                        </div>
                                         <p className="card-text">{p.description.substring(0, 30)}</p>
-                                        <p className="card-text">$ {p.price}</p>
                                         <button
-                                            className="btn btn-primary ms-1"
-                                            onClick={() => navigate(`/product/${p.slug}`)}
-                                        >
-                                            More Details
-                                        </button>
-                                        <button
-                                            className="btn btn-secondary ms-1"
+                                            className="btn ms-2 btn-warning"
                                             onClick={() => {
                                                 setCart([...cart, p])
                                                 localStorage.setItem(
@@ -184,17 +180,23 @@ const HomePage = () => {
                                                 toast.success('Item Added to Cart')
                                             }}
                                         >
-                                            Add to Cart
+                                            Add To Cart
+                                        </button>
+                                        <button
+                                            className="btn btn-info ms-2"
+                                            onClick={() => navigate(`/product/${p.slug}`)}
+                                        >
+                                            More Details
                                         </button>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     )}
-                    <div className="m-2 p-3">
-                        {products && products.length < total && (
+                    <div className="m-2 p-3 text-center">
+                        {!loading && products && products.length < total && (
                             <button
-                                className="btn btn-info"
+                                className="btn btn-success"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPage((prevPage) => prevPage + 1);

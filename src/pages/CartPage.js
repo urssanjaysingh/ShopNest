@@ -20,11 +20,15 @@ const CartPage = () => {
     const totalPrice = () => {
         try {
             let total = 0
-            cart?.map((item) => { total = total + item.price })
-            return total.toLocaleString("en-US", {
+            cart?.map((item) => {
+                total = total + item.price;
+            });
+            const formattedTotal = total.toLocaleString("en-IN", {
                 style: "currency",
-                currency: "USD",
-            })
+                currency: "INR",
+                minimumFractionDigits: 2,
+            });
+            return formattedTotal;
         } catch (error) {
             console.log(error)
         }
@@ -99,7 +103,7 @@ const CartPage = () => {
                                         <div className="col-md-8">
                                             <p>{p.name}</p>
                                             <p>{p.description.substring(0, 30)}</p>
-                                            <p>Price : {p.price}</p>
+                                            <p>Price : ₹{p.price}</p>
                                             <button
                                                 className='btn btn-danger'
                                                 onClick={() => removeCartItem(p._id)}
