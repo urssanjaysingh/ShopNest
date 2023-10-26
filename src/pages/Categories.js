@@ -10,10 +10,11 @@ const Categories = () => {
         <Layout title={"All Categories"}>
             <div className="container">
                 <div className="row">
+                    <h1 className='text-center'>All Categories</h1>
                     {categories.map(c => (
-                        <div className="col-md-6 mt-5 mb-3 gx-3 gy-3" key={c._id}>
+                        <div className="col-md-3 mt-5 mb-3 gx-3 gy-3" key={c._id}>
                             <Link
-                                className='btn btn-primary'
+                                className='category-link'
                                 to={`/category/${c.slug}`}
                             >
                                 {c.name}
