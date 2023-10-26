@@ -24,7 +24,7 @@ const SearchInput = () => {
             <form className="d-flex" role="search" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <input
-                        className="form-control me-2"
+                        className="form-control border-0"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
@@ -33,7 +33,7 @@ const SearchInput = () => {
                     />
                     <div className="input-group-append">
                         <button
-                            className="btn btn-outline-success"
+                            className="btn btn-primary ms-2"
                             type="submit"
                         >
                             Search

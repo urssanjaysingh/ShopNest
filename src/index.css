@@ -15,19 +15,21 @@ font-family: 'Poppins', sans-serif; */
   font-size: 18px;
   line-height: 1.5;
   text-transform: uppercase;
-  background-color: #fff; /* Light background color */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Smoother box shadow */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
-}
-
-/* Hover effect */
-.navbar:hover {
-  background-color: #f7f7f7; /* Slightly change background on hover */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Smoother box shadow on hover */
+  background-color: transparent; /* Transparent background */
+  box-shadow: none; /* Remove the box shadow */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
 }
 
 .nav-link {
-  font-weight: 300 !important;
+  font-weight: 400; /* Adjust font weight */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.nav-link:hover {
+  color: #007bff; /* Change the color on hover to your preferred color */
 }
 
 .nav-link-logout {
@@ -35,13 +37,31 @@ font-family: 'Poppins', sans-serif; */
 }
 
 .active {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid transparent; /* Hide the default border */
+  padding-bottom: 2px; /* Add some padding to the bottom to separate it from the text */
+  background: linear-gradient(to right, #007bff, #007bff) no-repeat;
+  background-size: 100% 2px; /* Adjust the width and height as needed */
+  background-position: 0 100%;
 }
 
 .navbar-brand {
   font-weight: 700;
-  font-family: "roboto", sans-serif;
-  letter-spacing: 3px;
+  font-family: "Roboto", sans-serif; /* Correct font family name */
+  letter-spacing: 2px; /* Adjust letter spacing */
+  font-size: 24px; /* Increase font size for the brand */
+  margin-left: 20px; /* Add margin to brand */
+}
+
+/* Adjustments for mobile responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    background-color: #fff; /* Revert to white background on small screens */
+    position: static;
+  }
+
+  .nav-link {
+    margin: 0 10px; /* Reduce spacing between links on small screens */
+  }
 }
 
 /* Your CSS file */
@@ -51,9 +71,21 @@ font-family: 'Poppins', sans-serif; */
   min-height: 100vh;
 }
 
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(../public/images/Banner.jpg);
+  background-size: cover;
+  transition: transform 0.5s ease-in-out; /* Add a transition effect for transform */
+}
+
+.hero-section:hover {
+  transform: scale(1.01); /* Zoom in on hover */
+}
+
 main {
   flex: 1;
   padding: 20px;
+  margin-top: 62px;
 }
 
 .sticky-footer {
@@ -64,10 +96,7 @@ main {
 
 /* Footer */
 .footer {
-  background: #222; /* Dark background color */
   text-align: center; /* Center align the content */
-  /* Add a gradient background */
-  background: linear-gradient(to right, #333, #222);
 }
 
 .footer a {

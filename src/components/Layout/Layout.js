@@ -14,7 +14,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
                 <title>{title}</title>
             </Helmet>
             <Header />
-            <main>
+            <main className='bg-body-tertiary'>
                 {children}
             </main>
             <Footer className="sticky-footer" />

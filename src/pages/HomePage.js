@@ -71,16 +71,19 @@ const HomePage = () => {
     }, [page])
 
     const loadMore = async () => {
+        if (loadingMore) return;
+        setLoadingMore(true);
+
         try {
-            setLoadingMore(true); // Set loadingMore to true
-            const { data } = await axios.get(`${API_URL}/api/v1/product/product-list/${page}`);
-            setLoadingMore(false); // Set loadingMore back to false
-            setProducts([...products, ...data?.products])
+            const { data } = await axios.get(`${API_URL}/api/v1/product/product-list/${page + 1}`);
+            setLoadingMore(false);
+            setProducts([...products, ...data?.products]);
+            setPage(page + 1);
         } catch (error) {
             console.log(error);
-            setLoadingMore(false); // Set loadingMore back to false
+            setLoadingMore(false);
         }
-    }
+    };
 
     const handleFilter = (value, id) => {
         let all = [...checked]
@@ -122,8 +125,22 @@ const HomePage = () => {
     return (
         <Layout title={"Shopnest - Home"}>
             <div className="row">
+                <section className="hero-section py-4 py-xl-5 mt-2">
+                    <div className="container h-100">
+                        <div className="text-white border rounded border-0 p-4 py-5">
+                            <div className="row h-100">
+                                <div className="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
+                                    <div>
+                                        <h1 className="text-uppercase fw-bold text-white mb-3">Welcome to Shopnest</h1>
+                                        <p className="mb-4">Your destination for quality products. Explore our wide range of products, find great deals, and shop with confidence at Shopnest, your online shopping paradise.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <div className="col-md-3">
-                    <h5 className='text-center' style={{ marginTop: '70px' }}>Filter By Category</h5>
+                    <h5 className='text-center' style={{ marginTop: '75px' }}>Filter By Category</h5>
                     <div className="d-flex flex-column">
                         {categories?.map(c => (
                             <Checkbox key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
@@ -146,7 +163,7 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div className="col-md-9">
-                    <h1 className='text-center'>All Products</h1>
+                    <h1 className='text-center mt-3'>All Products</h1>
                     {noMatchingProducts ? (
                         <div className="text-center">No products match the selected filters.</div>
                     ) : loading ? (
@@ -161,7 +178,7 @@ const HomePage = () => {
                     ) : (
                         <div className="d-flex flex-wrap fade-in">
                             {products?.map((p, index) => (
-                                <div className="card product-card m-2" style={{ width: '18rem' }} key={index}>
+                                <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={index}>
                                     <img src={p.photo} className="card-img-top product-image" alt={p.name} />
                                     <div className="card-body">
                                         <div className="product-info d-flex align-items-center justify-content-between">

@@ -84,7 +84,7 @@ const CartPage = () => {
                         <h1 className='text-center bg-light p-2 mb-1'>
                             {`Hello ${auth?.token && auth?.user?.name}`}
                         </h1>
-                        <h4 className='text-center'>
+                        <h4 className='text-center mb-4'>
                             {cart?.length >= 1
                                 ? `You have ${cart.length} items in your cart, ${auth?.token ? " " : "Please login to checkout"}`
                                 : "Your cart is empty"}
@@ -96,20 +96,24 @@ const CartPage = () => {
                         <div className="row">
                             {
                                 cart?.map(p => (
-                                    <div className="row mb-2 p-3 card flex-row">
-                                        <div className="col-md-4" style={{ width: '10rem' }}>
-                                            <img src={p.photo} className="card-img-top img-fluid" alt={p.name} />
-                                        </div>
-                                        <div className="col-md-8">
-                                            <p>{p.name}</p>
-                                            <p>{p.description.substring(0, 30)}</p>
-                                            <p>Price : ₹{p.price}</p>
-                                            <button
-                                                className='btn btn-danger'
-                                                onClick={() => removeCartItem(p._id)}
-                                            >
-                                                Remove
-                                            </button>
+                                    <div className="card mb-3" style={{ maxWidth: 750, paddingLeft: 0 }}>
+                                        <div className="row">
+                                            <div className="col-md-4">
+                                                <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
+                                            </div>
+                                            <div className="col-md-8">
+                                                <div className="card-body mt-3">
+                                                    <p>{p.name}</p>
+                                                    <p>{p.description.substring(0, 30)}</p>
+                                                    <p>Price : ₹{p.price}</p>
+                                                    <button
+                                                        className='btn btn-danger'
+                                                        onClick={() => removeCartItem(p._id)}
+                                                    >
+                                                        Remove
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 ))
