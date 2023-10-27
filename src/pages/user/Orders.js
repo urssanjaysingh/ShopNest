@@ -26,7 +26,7 @@ const Orders = () => {
 
     return (
         <Layout title={'Your Orders'}>
-            <div className="container-fluid p-3 m-3">
+            <div className="container-fluid p-3 mt-3">
                 <div className="row">
                     <div className="col-md-3">
                         <UserMenu />
@@ -36,8 +36,8 @@ const Orders = () => {
                         {
                             orders?.map((o, i) => {
                                 return (
-                                    <div className="border">
-                                        <table className="table">
+                                    <div className="border-0" key={i}>
+                                        <table className="table table-striped">
                                             <thead>
                                                 <th scope='col'>#</th>
                                                 <th scope='col'>Status</th>
@@ -61,14 +61,18 @@ const Orders = () => {
                                             <div className="row">
                                                 {
                                                     o?.products.map((p, i) => (
-                                                        <div className="row mb-2 p-3 flex-row">
-                                                            <div className="col-md-4" style={{ width: '10rem' }}>
-                                                                <img src={p.photo} className="card-img-top img-fluid" alt={p.name} />
-                                                            </div>
-                                                            <div className="col-md-8">
-                                                                <p>{p.name}</p>
-                                                                <p>{p.description.substring(0, 30)}</p>
-                                                                <p>Price : ₹{p.price}</p>
+                                                        <div className="card mb-3 border-0" style={{ maxWidth: 420, marginLeft: '45px', paddingLeft: 0, }}>
+                                                            <div className="row">
+                                                                <div className="col-md-4 d-flex align-items-center justify-content-center">
+                                                                    <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
+                                                                </div>
+                                                                <div className="col-md-8">
+                                                                    <div className="card-body mt-3">
+                                                                        <p>{p.name}</p>
+                                                                        <p>{p.description.substring(0, 30)}</p>
+                                                                        <p>Price : ₹{p.price}</p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     ))
