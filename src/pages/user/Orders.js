@@ -26,7 +26,7 @@ const Orders = () => {
 
     return (
         <Layout title={'Your Orders'}>
-            <div className="container-fluid p-3 mt-3">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-3">
                         <UserMenu />
@@ -36,15 +36,18 @@ const Orders = () => {
                         {
                             orders?.map((o, i) => {
                                 return (
-                                    <div className="border-0" key={i}>
+                                    <div className="border-0 order-container" key={i}>
+                                        <hr className='mb-0' />
                                         <table className="table table-striped">
                                             <thead>
-                                                <th scope='col'>#</th>
-                                                <th scope='col'>Status</th>
-                                                <th scope='col'>Buyer</th>
-                                                <th scope='col'>Date</th>
-                                                <th scope='col'>Payment</th>
-                                                <th scope='col'>Quantity</th>
+                                                <tr>
+                                                    <th scope='col'>#</th>
+                                                    <th scope='col'>Status</th>
+                                                    <th scope='col'>Buyer</th>
+                                                    <th scope='col'>Date</th>
+                                                    <th scope='col'>Payment</th>
+                                                    <th scope='col'>Quantity</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
@@ -61,7 +64,7 @@ const Orders = () => {
                                             <div className="row">
                                                 {
                                                     o?.products.map((p, i) => (
-                                                        <div className="card mb-3 border-0" style={{ maxWidth: 420, marginLeft: '45px', paddingLeft: 0, }}>
+                                                        <div className="card mb-3 border-0 bg-light" style={{ maxWidth: 420, marginLeft: '45px', paddingLeft: 0, }}>
                                                             <div className="row">
                                                                 <div className="col-md-4 d-flex align-items-center justify-content-center">
                                                                     <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />

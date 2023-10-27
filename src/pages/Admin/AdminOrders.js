@@ -43,68 +43,80 @@ const AdminOrders = () => {
 
   return (
     <Layout title="All Orders Data">
-      <div className='row'>
-        <div className='col-md-3'>
-          <AdminMenu />
-        </div>
-        <div className="col-md-9">
-          <h1 className='text-center'>All Orders</h1>
-          {
-            orders?.map((o, i) => {
-              return (
-                <div className="border order-container">
-                  <table className="table">
-                    <thead>
-                      <th scope='col'>#</th>
-                      <th scope='col'>Status</th>
-                      <th scope='col'>Buyer</th>
-                      <th scope='col'>Date</th>
-                      <th scope='col'>Payment</th>
-                      <th scope='col'>Quantity</th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{i + 1}</td>
-                        <td>
-                          <Select
-                            bordered={false}
-                            onChange={(value) => handleChange(o._id, value)}
-                            defaultValue={o?.status}
-                          >
-                            {status.map((s, i) => (
-                              <option key={i} value={s}>
-                                {s}
-                              </option>
-                            ))}
-                          </Select>
-                        </td>
-                        <td>{o?.buyer?.name}</td>
-                        <td>{moment(o?.createdAt).fromNow()}</td>
-                        <td>{o?.payment?.success ? "Success" : "Failed"}</td>
-                        <td>{o?.products?.length}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className="row justify-content-center">
-                    {
-                      o?.products.map((p, i) => (
-                        <div className="row mb-2 p-3 flex-row">
-                          <div className="col-md-4" style={{ width: '10rem' }}>
-                            <img src={p.photo} className="card-img-top img-fluid" alt={p.name} />
-                          </div>
-                          <div className="col-md-9">
-                            <p>{p.name}</p>
-                            <p>{p.description.substring(0, 30)}</p>
-                            <p>Price : ₹{p.price}</p>
-                          </div>
-                        </div>
-                      ))
-                    }
+      <div className='container-fluid'>
+        <div className="row">
+          <div className='col-md-3'>
+            <AdminMenu />
+          </div>
+          <div className="col-md-9">
+            <h1 className='text-center mb-3'>All Orders</h1>
+            {
+              orders?.map((o, i) => {
+                return (
+                  <div className="border-0 order-container" key={i}>
+                    <hr className='mb-0' />
+                    <table className="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope='col'>#</th>
+                          <th scope='col'>Status</th>
+                          <th scope='col'>Buyer</th>
+                          <th scope='col'>Date</th>
+                          <th scope='col'>Payment</th>
+                          <th scope='col'>Quantity</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{i + 1}</td>
+                          <td>
+                            <Select
+                              bordered={false}
+                              onChange={(value) => handleChange(o._id, value)}
+                              defaultValue={o?.status}
+                              style={{ width: 120 }}
+                            >
+                              {status.map((s, i) => (
+                                <option key={i} value={s}>
+                                  {s}
+                                </option>
+                              ))}
+                            </Select>
+                          </td>
+                          <td>{o?.buyer?.name}</td>
+                          <td>{moment(o?.createdAt).fromNow()}</td>
+                          <td>{o?.payment?.success ? "Success" : "Failed"}</td>
+                          <td>{o?.products?.length}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div className="container">
+                      <div className="row">
+                        {
+                          o?.products.map((p, i) => (
+                            <div className="card mb-3 border-0 bg-light" style={{ maxWidth: 420, marginLeft: '45px', paddingLeft: 0, }}>
+                              <div className="row">
+                                <div className="col-md-4 d-flex align-items-center justify-content-center">
+                                  <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
+                                </div>
+                                <div className="col-md-8">
+                                  <div className="card-body mt-3">
+                                    <p>{p.name}</p>
+                                    <p>{p.description.substring(0, 30)}</p>
+                                    <p>Price : ₹{p.price}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        }
+                      </div>
+                    </div>
                   </div>
-                </div>
-              )
-            })
-          }
+                )
+              })
+            }
+          </div>
         </div>
       </div>
     </Layout>

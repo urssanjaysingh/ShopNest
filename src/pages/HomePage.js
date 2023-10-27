@@ -224,7 +224,7 @@ const HomePage = () => {
                         </div>
                     )}
                     <div className="m-2 p-3 text-center">
-                        {!loading && products && products.length < total && (
+                        {!noMatchingProducts && !loading && products && products.length < total && !checked.length && !radio.length && (
                             <button
                                 className="btn btn-success"
                                 onClick={(e) => {
@@ -235,7 +235,7 @@ const HomePage = () => {
                                 disabled={loadingMore || products.length === total}
                             >
                                 {loadingMore ? (
-                                    <i className="fas fa-spinner fa-spin"></i> // Loading spinner icon
+                                    <i className="fas fa-spinner fa-spin"></i>
                                 ) : "Loadmore"}
                             </button>
                         )}

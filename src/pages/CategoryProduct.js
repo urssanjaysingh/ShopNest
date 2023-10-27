@@ -40,10 +40,10 @@ const CategoryProduct = () => {
                 <h4 className='text-center'>Category - {category?.name}</h4>
                 <h6 className='text-center'>{products?.length} results found</h6>
                 <div className="row">
-                    <div className="offset-1">
+                    <div>
                         {loading ? (
                             <div className="text-center">
-                                <div className="spinner-border" role="status">
+                                <div className="spinner-border text-primary" role="status">
                                     <span className="visually-hidden">Loading...</span>
                                 </div>
                                 <p>Loading products...</p>
@@ -52,12 +52,12 @@ const CategoryProduct = () => {
                             <div className="text-center">No products available.</div>
                         ) : (
                             <div className="d-flex flex-wrap">
-                                {products?.map(p => (
-                                    <div className="card product-card m-2 bg-light" style={{ width: '18rem' }}>
+                                {products?.map((p, index) => (
+                                    <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={index}>
                                         <img src={p.photo} className="card-img-top product-image" alt={p.name} />
                                         <div className="card-body">
                                             <div className="product-info d-flex align-items-center justify-content-between">
-                                                <h5 className="card-title ">{p.name}</h5>
+                                                <h5 className="card-title mb-0">{p.name}</h5>
                                                 <p className="product-price mb-0 ml-2">₹{p.price}</p>
                                             </div>
                                             <p className="card-text">{p.description.substring(0, 30)}</p>

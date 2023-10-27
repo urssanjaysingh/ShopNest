@@ -17,7 +17,7 @@ const Categories = () => {
                                 className='category-link'
                                 to={`/category/${c.slug}`}
                             >
-                                {c.name}
+                                <i className="fas fa-folder"></i> {c.name}
                             </Link>
                         </div>
                     ))}

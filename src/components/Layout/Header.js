@@ -45,10 +45,10 @@ const Header = () => {
             <nav className="navbar navbar-expand-lg bg-light bg-gradient">
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon" />
+                        <i className="fas fa-bars"></i>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <Link to="/" className="navbar-brand">ShopNest</Link>
+                        <Link to="/" className="navbar-brand"><i className="fas fa-store"></i> ShopNest</Link>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item mx-auto">
                                 <SearchInput />
@@ -56,7 +56,7 @@ const Header = () => {
                         </ul>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink to="/" className="nav-link">Home</NavLink>
+                                <NavLink to="/" className="nav-link"><i className="fas fa-home"></i> Home</NavLink>
                             </li>
                             <li className="nav-item dropdown">
                                 <Link
@@ -64,12 +64,12 @@ const Header = () => {
                                     to={"/categories"}
                                     data-bs-toggle="dropdown"
                                 >
-                                    Categories
+                                    <i className="fas fa-list"></i> Categories
                                 </Link>
                                 <ul className="dropdown-menu">
                                     <li>
                                         <Link className='dropdown-item' to={"/categories"}>
-                                            All Categories
+                                            <i className="fas fa-list"></i> All Categories
                                         </Link>
                                     </li>
                                     {categories?.map((c) => (
@@ -78,7 +78,7 @@ const Header = () => {
                                                 className="dropdown-item"
                                                 to={`/category/${c.slug}`}
                                             >
-                                                {c.name}
+                                                <i className="fas fa-folder"></i> {c.name}
                                             </Link>
                                         </li>
                                     ))}
@@ -88,22 +88,22 @@ const Header = () => {
                                 !auth.user ? (
                                     <>
                                         <li className="nav-item">
-                                            <NavLink to="/register" className="nav-link">Register</NavLink>
+                                            <NavLink to="/register" className="nav-link"><i className="fas fa-user-plus"></i> Register</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink to="/login" className="nav-link">Login</NavLink>
+                                            <NavLink to="/login" className="nav-link"><i className="fas fa-sign-in-alt"></i> Login</NavLink>
                                         </li>
                                     </>
                                 ) : (
                                     <>
                                         <li className="nav-item dropdown">
                                             <NavLink className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {auth?.user?.name}
+                                                <i className="fas fa-user"></i> {auth?.user?.name}
                                             </NavLink>
                                             <ul className="dropdown-menu">
-                                                <li><NavLink to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : 'user'}`} className="dropdown-item" >Dashboard</NavLink></li>
+                                                <li><NavLink to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : 'user'}`} className="dropdown-item" ><i className="fas fa-tachometer-alt"></i> Dashboard</NavLink></li>
                                                 <li>
-                                                    <span className="dropdown-item nav-link-logout" onClick={handleLogout}>Logout</span>
+                                                    <span className="dropdown-item nav-link-logout" onClick={handleLogout}><i className="fas fa-sign-out-alt"></i> Logout</span>
                                                 </li>
                                             </ul>
                                         </li>
@@ -112,7 +112,7 @@ const Header = () => {
                             }
                             <li className="nav-item">
                                 <NavLink to="/cart" className="nav-link">
-                                    Cart <Badge count={cart?.length} showZero></Badge>
+                                    <i className="fas fa-shopping-cart"></i> Cart <Badge count={cart?.length} showZero></Badge>
                                 </NavLink>
                             </li>
                         </ul>

@@ -50,7 +50,7 @@ const Login = () => {
     return (
         <Layout title={"Login"}>
             <div className="container">
-                <div className="row d-flex justify-content-center align-items-center" style={{ height: "70vh" }}>
+                <div className="row justify-content-center align-items-center">
                     <div className="col-md-4">
                         <div className="rounded p-3 border">
                             <h1 className="mb-4 text-center">Login Form</h1>
