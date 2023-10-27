@@ -140,26 +140,39 @@ const HomePage = () => {
                     </div>
                 </section>
                 <div className="col-md-3">
-                    <h5 className='text-center' style={{ marginTop: '75px' }}>Filter By Category</h5>
+                    <h5 style={{ marginTop: '75px' }}>Filter By Category</h5>
                     <div className="d-flex flex-column">
                         {categories?.map(c => (
-                            <Checkbox key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
-                                {c.name}
-                            </Checkbox>
+                            <div key={c._id}>
+                                <div className="form-check">
+                                    <input
+                                        type="checkbox"
+                                        className="form-check-input custom-checkbox"
+                                        id={`category-${c._id}`}
+                                        checked={checked.includes(c._id)}
+                                        onChange={(e) => handleFilter(e.target.checked, c._id)}
+                                    />
+                                    <label className="form-check-label" htmlFor={`category-${c._id}`}>
+                                        {c.name}
+                                    </label>
+                                </div>
+                            </div>
                         ))}
                     </div>
-                    <h5 className='text-center mt-3'>Filter By Price</h5>
+                    <h5 className='mt-4'>Filter By Price</h5>
                     <div className="d-flex flex-column">
-                        <Radio.Group onChange={e => setRadio(e.target.value)}>
+                        <Radio.Group
+                            onChange={e => setRadio(e.target.value)}
+                        >
                             {Prices?.map(p => (
-                                <div key={p._id}>
-                                    <Radio value={p.array}>{p.name}</Radio>
+                                <div key={p._id} className="radio-item">
+                                    <Radio value={p.array} className="custom-radio">{p.name}</Radio>
                                 </div>
                             ))}
                         </Radio.Group>
                     </div>
                     <div className="d-flex flex-column">
-                        <button className='btn btn-danger mt-4' onClick={() => window.location.reload()}>Reset Filters</button>
+                        <button className='btn btn-outline-danger mt-4' onClick={() => window.location.reload()}>Reset Filters</button>
                     </div>
                 </div>
                 <div className="col-md-9">
@@ -168,7 +181,7 @@ const HomePage = () => {
                         <div className="text-center">No products match the selected filters.</div>
                     ) : loading ? (
                         <div className="text-center">
-                            <div className="spinner-border" role="status">
+                            <div className="spinner-border text-primary" role="status">
                                 <span className="visually-hidden">Loading...</span>
                             </div>
                             <p>Loading products...</p>
@@ -221,7 +234,9 @@ const HomePage = () => {
                                 }}
                                 disabled={loadingMore || products.length === total}
                             >
-                                {loadingMore ? "Loading ..." : "Loadmore"}
+                                {loadingMore ? (
+                                    <i className="fas fa-spinner fa-spin"></i> // Loading spinner icon
+                                ) : "Loadmore"}
                             </button>
                         )}
                     </div>

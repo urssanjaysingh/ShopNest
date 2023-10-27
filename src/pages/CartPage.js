@@ -41,6 +41,7 @@ const CartPage = () => {
             myCart.splice(index, 1);
             setCart(myCart);
             localStorage.setItem("cart", JSON.stringify(myCart))
+            toast.success('Item Removed Successfully!')
         } catch (error) {
             console.log(error)
         }

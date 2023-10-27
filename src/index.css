@@ -88,6 +88,24 @@ main {
   margin-top: 62px;
 }
 
+.custom-checkbox {
+  /* Hover effect */
+  &:hover {
+    border: 1px solid #007bff; /* Change border color on hover to primary color blue */
+    color: #fff; /* Text color for the checkbox on hover */
+  }
+}
+
+.radio-group {
+  display: flex; /* Apply a flex display to arrange radio buttons horizontally */
+  justify-content: space-between; /* Adjust alignment as needed */
+}
+
+.custom-radio {
+  display: inline-block;
+  transition: all 0.3s; /* Add a smooth transition for hover and selection */
+}
+
 .sticky-footer {
   background-color: #333;
   color: #fff;
