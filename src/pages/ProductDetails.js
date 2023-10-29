@@ -39,7 +39,7 @@ const ProductDetails = () => {
     }
 
     return (
-        <Layout>
+        <Layout title={"Product Details"}>
             <div className="container">
                 <div className="row product mt-4 mb-4">
                     <div className="col-md-6" style={{ width: '28rem' }} >
