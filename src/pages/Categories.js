@@ -11,8 +11,8 @@ const Categories = () => {
             <div className="container">
                 <div className="row">
                     <h1 className='text-center'>All Categories</h1>
-                    {categories.map(c => (
-                        <div className="col-md-3 mt-5 mb-3 gx-3 gy-3" key={c._id}>
+                    {categories.map((c, i) => (
+                        <div className="col-md-3 mt-5 mb-3 gx-3 gy-3" key={i}>
                             <Link
                                 className='category-link'
                                 to={`/category/${c.slug}`}

@@ -6,17 +6,13 @@
   box-sizing: border-box;
 }
 
-/* font-family: 'Playfair Display', serif;
-font-family: 'Poppins', sans-serif; */
-
-/* Navbar CSS */
 .navbar {
   font-family: "Poppins", sans-serif;
   font-size: 18px;
   line-height: 1.5;
   text-transform: uppercase;
-  background-color: transparent; /* Transparent background */
-  box-shadow: none; /* Remove the box shadow */
+  background-color: transparent;
+  box-shadow: none;
   transition: background-color 0.3s, box-shadow 0.3s;
   position: fixed;
   width: 100%;
@@ -24,12 +20,12 @@ font-family: 'Poppins', sans-serif; */
 }
 
 .nav-link {
-  font-weight: 400; /* Adjust font weight */
-  transition: color 0.3s; /* Smooth color transition */
+  font-weight: 400;
+  transition: color 0.3s;
 }
 
 .nav-link:hover {
-  color: #007bff; /* Change the color on hover to your preferred color */
+  color: #007bff;
 }
 
 .nav-link-logout {
@@ -37,38 +33,35 @@ font-family: 'Poppins', sans-serif; */
 }
 
 .active {
-  border-bottom: 2px solid transparent; /* Hide the default border */
-  padding-bottom: 2px; /* Add some padding to the bottom to separate it from the text */
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
 }
 
-/* Add a specific style for the User link when it's active */
 .nav-link.active {
   background: linear-gradient(to right, #007bff, #007bff) no-repeat;
-  background-size: 100% 2px; /* Adjust the width and height as needed */
+  background-size: 100% 2px;
   background-position: 0 100%;
 }
 
 .navbar-brand {
   font-weight: 700;
-  font-family: "Roboto", sans-serif; /* Correct font family name */
-  letter-spacing: 2px; /* Adjust letter spacing */
-  font-size: 24px; /* Increase font size for the brand */
-  margin-left: 20px; /* Add margin to brand */
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  font-size: 24px;
+  margin-left: 20px;
 }
 
-/* Adjustments for mobile responsiveness */
 @media (max-width: 768px) {
   .navbar {
-    background-color: #fff; /* Revert to white background on small screens */
+    background-color: #fff;
     position: static;
   }
 
   .nav-link {
-    margin: 0 10px; /* Reduce spacing between links on small screens */
+    margin: 0 10px;
   }
 }
 
-/* Your CSS file */
 .layout-container {
   display: flex;
   flex-direction: column;
@@ -79,50 +72,46 @@ font-family: 'Poppins', sans-serif; */
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(../public/images/Banner.jpg);
   background-size: cover;
-  transition: transform 0.5s ease-in-out; /* Add a transition effect for transform */
+  transition: transform 0.5s ease-in-out;
 }
 
 .hero-section:hover {
-  transform: scale(1.01); /* Zoom in on hover */
+  transform: scale(1.01);
 }
 
 main {
   flex: 1;
   padding: 20px;
   margin-top: 62px;
-  margin-bottom: 52px;
+  margin-bottom: 44px;
 }
 
 .custom-checkbox {
-  /* Hover effect */
   &:hover {
-    border: 1px solid #007bff; /* Change border color on hover to primary color blue */
-    color: #fff; /* Text color for the checkbox on hover */
+    border: 1px #007bff;
   }
 }
 
-.radio-group {
-  display: flex; /* Apply a flex display to arrange radio buttons horizontally */
-  justify-content: space-between; /* Adjust alignment as needed */
-}
-
 .custom-radio {
-  display: inline-block;
-  transition: all 0.3s; /* Add a smooth transition for hover and selection */
+  transition: all 0.3s;
 }
 
 .sticky-footer {
-  color: #ccc; /* Change the text color to white */
+  color: #ccc;
   padding: 10px;
   position: fixed;
   width: 100%;
-  bottom: 0; /* Place the footer at the bottom */
+  bottom: 0;
   z-index: 1000;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sticky-footer a {
   text-decoration: none;
-  color: #ccc; /* Change link text color to black */
+  color: #ccc;
   font-size: 16px;
   margin-left: 5px;
   transition: color 0.3s;
@@ -134,23 +123,16 @@ main {
   border-bottom: 1px solid #ffefba;
 }
 
-/* Add smooth hover effect */
 .sticky-footer a:hover {
   transition: color 0.3s, border-bottom 0.3s;
 }
 
-/* Media query for screens smaller than 768px (e.g., mobile devices) */
 @media (max-width: 768px) {
-  .footer {
-    padding: 5px;
-  }
-
-  .footer a {
-    font-size: 14px;
+  .sticky-footer a {
+    font-size: 12px;
   }
 }
 
-/* Page Not Found */
 .pnf {
   display: flex;
   min-height: 65vh;
@@ -186,21 +168,20 @@ main {
   justify-content: center;
 }
 
-/* Register */
 .register {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  height: 70vh;
-  flex-direction: column;
+}
+
+.login {
+  margin-top: 70px;
 }
 
 .instructions {
-  font-size: 0.8rem; /* Slightly increased font size */
-  border-radius: 8px; /* Slightly increased border radius */
+  font-size: 0.8rem;
+  border-radius: 8px;
   background: #333;
   color: #fff;
-  padding: 0.25rem 0.5rem; /* Adjusted padding */
+  padding: 0.25rem 0.5rem;
   position: relative;
   bottom: -10px;
 }
@@ -232,7 +213,6 @@ main {
 .product-description {
   font-size: 16px;
   color: #666;
-  margin-top: 10px;
 }
 
 .product-price {
@@ -264,15 +244,14 @@ main {
 }
 
 .product-info .card-title {
-  font-size: 1.2rem; /* Adjust the font size as needed */
+  font-size: 1.2rem;
 }
 
 .product-info .product-price {
-  font-size: 1.2rem; /* Adjust the font size as needed */
-  color: #ff5733; /* Change the color to your preferred price color */
+  font-size: 1.2rem;
+  color: #ff5733;
 }
 
-/* Apply hover effects to the product card */
 .product-card {
   position: relative;
   overflow: hidden;
@@ -280,20 +259,18 @@ main {
 }
 
 .product-card:hover {
-  background-color: #f8f8f8; /* Change the background color on hover */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a shadow on hover */
+  background-color: #f8f8f8;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Add animation to the image inside the product card */
 .product-card .product-image {
   transition: transform 0.3s;
 }
 
 .product-card:hover .product-image {
-  transform: scale(1.01); /* Scale up the image on hover */
+  transform: scale(1.01);
 }
 
-/* Style for the category links */
 .category-link {
   display: block;
   padding: 10px 20px;
@@ -324,36 +301,33 @@ main {
   }
 }
 
-/* Adjustments for mobile responsiveness */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 10px; /* Add some padding to the header to make it look better on smaller screens */
+  main {
+    margin-top: 0px;
   }
 
-  /* Reduce the font size and add margin to the navbar brand */
+  .navbar {
+    padding: 0px;
+  }
+
   .navbar-brand {
     font-size: 18px;
-    margin-left: 0; /* Remove the left margin on smaller screens */
+    margin-left: 0;
   }
 
-  /* Reduce the font size of nav links */
   .nav-link {
     font-size: 16px;
   }
 
-  /* Reduce the padding for nav items */
   .nav-item {
-    padding: 5px 10px;
+    padding: 0px 0px;
   }
 
-  /* You can further adjust the styles as needed for smaller screens */
-  /* For example, you can reduce the icon size to make them look smaller */
   .navbar .fas {
     font-size: 20px;
   }
 }
 
-/* Media Query for screens with a maximum width of 768px */
 @media (max-width: 768px) {
   .navbar {
     background-color: #fff;
@@ -377,7 +351,6 @@ main {
   }
 }
 
-/* Media Query for screens with a maximum width of 576px */
 @media (max-width: 576px) {
   .navbar {
     font-size: 16px;

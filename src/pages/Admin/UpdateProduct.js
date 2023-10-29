@@ -52,7 +52,6 @@ const UpdateProduct = () => {
         //eslint-disable-next-line
     }, [])
 
-    //get all categories
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/category/get-all`)
@@ -110,7 +109,6 @@ const UpdateProduct = () => {
 
     const handleDeleteConfirm = async (confirmed) => {
         if (deleteTarget && confirmed) {
-            // Perform the delete operation here
             try {
                 const { data } = await axios.delete(`${API_URL}/api/v1/product/delete/${deleteTarget}`);
                 if (data.success) {
@@ -123,7 +121,6 @@ const UpdateProduct = () => {
                 toast.error('Something went wrong');
             }
         }
-        // Close the delete confirmation modal
         hideDeleteModal();
     };
 
@@ -148,8 +145,8 @@ const UpdateProduct = () => {
                                 onChange={(value) => { setCategory(value) }}
                                 value={category}
                             >
-                                {categories?.map(c => (
-                                    <Option key={c._id} value={c._id}>
+                                {categories?.map((c, i) => (
+                                    <Option key={i} value={c._id}>
                                         {c.name}
                                     </Option>
                                 ))}

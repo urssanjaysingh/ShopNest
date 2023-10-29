@@ -21,8 +21,8 @@ const HomePage = () => {
     const [total, setTotal] = useState(0)
     const [page, setPage] = useState(1)
     const [loadingMore, setLoadingMore] = useState(false);
+    const [showFilters, setShowFilters] = useState(false);
 
-    //get all categories
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/category/get-all`)
@@ -50,11 +50,10 @@ const HomePage = () => {
             setLoading(false);
             toast.error('Something went wrong');
         } finally {
-            setLoading(false); // Set loading back to false
+            setLoading(false);
         }
     }
 
-    //get total count
     const getTotal = async () => {
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/product/product-count`)
@@ -96,10 +95,9 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        // If no categories are selected and no price filter is selected, reload all products
         if ((!checked || !checked.length) && !radio.length) {
             getAllProducts();
-            setNoMatchingProducts(false); // Hide the message
+            setNoMatchingProducts(false);
         } else {
             filterProduct();
         }
@@ -111,14 +109,14 @@ const HomePage = () => {
             const { data } = await axios.post(`${API_URL}/api/v1/product/filters`, { checked, radio });
 
             if (data.products.length === 0) {
-                setNoMatchingProducts(true); // Show the message
+                setNoMatchingProducts(true);
             } else {
-                setNoMatchingProducts(false); // Hide the message
+                setNoMatchingProducts(false);
             }
 
             setProducts(data.products);
         } catch (error) {
-            console.log('Error while filtering products:', error);
+            console.log(error);
         }
     };
 
@@ -139,44 +137,59 @@ const HomePage = () => {
                         </div>
                     </div>
                 </section>
-                <div className="col-md-3">
-                    <h5 style={{ marginTop: '75px' }}>Filter By Category</h5>
-                    <div className="d-flex flex-column">
-                        {categories?.map(c => (
-                            <div key={c._id}>
-                                <div className="form-check">
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input custom-checkbox"
-                                        id={`category-${c._id}`}
-                                        checked={checked.includes(c._id)}
-                                        onChange={(e) => handleFilter(e.target.checked, c._id)}
-                                    />
-                                    <label className="form-check-label" htmlFor={`category-${c._id}`}>
-                                        {c.name}
-                                    </label>
+                <div className='text-center'>
+                    <button
+                        className='btn btn-outline-primary mt-4 mb-3'
+                        style={{ width: 300 }}
+                        onClick={() => setShowFilters(!showFilters)}
+                    >
+                        {showFilters ? 'Hide Filters' : 'Show Filters'}
+                    </button>
+                </div>
+                {showFilters && (
+                    <>
+                        <div className="d-flex flex-start">
+                            <div className="col-md-2">
+                                <h5 className="mt-4" style={{ marginTop: '75px' }}>Categories</h5>
+                                {categories?.map((c, i) => (
+                                    <div key={i}>
+                                        <div className="form-check">
+                                            <Checkbox
+                                                className="form-check-input custom-checkbox"
+                                                id={`category-${c._id}`}
+                                                checked={checked.includes(c._id)}
+                                                onChange={(e) => handleFilter(e.target.checked, c._id)}
+                                            />
+                                            <label className="form-check-label" htmlFor={`category-${c._id}`}>{c.name}</label>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="col-md-2">
+                                <h5 className="mt-4">Prices</h5>
+                                <div className="radio-group">
+                                    {Prices?.map((p, i) => (
+                                        <div key={i} className="radio-item">
+                                            <Radio
+                                                value={p.array}
+                                                className="custom-radio"
+                                                checked={radio === p.array}
+                                                onChange={(e) => setRadio(e.target.value)}
+                                            >
+                                                {p.name}
+                                            </Radio>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                    <h5 className='mt-4'>Filter By Price</h5>
-                    <div className="d-flex flex-column">
-                        <Radio.Group
-                            onChange={e => setRadio(e.target.value)}
-                        >
-                            {Prices?.map(p => (
-                                <div key={p._id} className="radio-item">
-                                    <Radio value={p.array} className="custom-radio">{p.name}</Radio>
-                                </div>
-                            ))}
-                        </Radio.Group>
-                    </div>
-                    <div className="d-flex flex-column">
-                        <button className='btn btn-outline-danger mt-4' onClick={() => window.location.reload()}>Reset Filters</button>
-                    </div>
-                </div>
-                <div className="col-md-9">
-                    <h1 className='text-center mt-3'>All Products</h1>
+                        </div>
+                        <div className="text-center">
+                            <button className="btn btn-outline-danger mt-4 mb-4" onClick={() => window.location.reload()}>Reset Filters</button>
+                        </div>
+                    </>
+                )}
+                <h1 className="text-center">All Products</h1>
+                <div className="col-md-12">
                     {noMatchingProducts ? (
                         <div className="text-center">No products match the selected filters.</div>
                     ) : loading ? (
@@ -189,16 +202,16 @@ const HomePage = () => {
                     ) : products.length === 0 ? (
                         <div className="text-center">No products available.</div>
                     ) : (
-                        <div className="d-flex flex-wrap fade-in">
-                            {products?.map((p, index) => (
-                                <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={index}>
+                        <div className="d-flex flex-wrap fade-in justify-content-center">
+                            {products?.map((p, i) => (
+                                <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={i} value={p._id}>
                                     <img src={p.photo} className="card-img-top product-image" alt={p.name} />
                                     <div className="card-body">
                                         <div className="product-info d-flex align-items-center justify-content-between">
                                             <h5 className="card-title mb-0">{p.name}</h5>
                                             <p className="product-price mb-0 ml-2">₹{p.price}</p>
                                         </div>
-                                        <p className="card-text">{p.description.substring(0, 30)}</p>
+                                        <p className="card-text product-description">{p.description.substring(0, 30)}</p>
                                         <button
                                             className="btn ms-2 btn-warning"
                                             onClick={() => {
@@ -230,7 +243,7 @@ const HomePage = () => {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPage((prevPage) => prevPage + 1);
-                                    loadMore(); // Load more products
+                                    loadMore();
                                 }}
                                 disabled={loadingMore || products.length === total}
                             >

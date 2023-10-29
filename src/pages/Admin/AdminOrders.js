@@ -34,7 +34,7 @@ const AdminOrders = () => {
       })
       toast.success('Status Changed Successfully')
       if (data.status === 200) {
-        getOrders(); // Refresh the orders after the update
+        getOrders();
       }
     } catch (error) {
       console.log(error)
@@ -94,7 +94,7 @@ const AdminOrders = () => {
                       <div className="row">
                         {
                           o?.products.map((p, i) => (
-                            <div className="card mb-3 border-0 bg-light" style={{ maxWidth: 420, marginLeft: '45px', paddingLeft: 0, }}>
+                            <div className="card mb-3 border-0 bg-light" style={{ maxWidth: 420, marginLeft: '45px', paddingLeft: 0, }} key={i}>
                               <div className="row">
                                 <div className="col-md-4 d-flex align-items-center justify-content-center">
                                   <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />

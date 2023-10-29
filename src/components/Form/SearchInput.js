@@ -12,7 +12,6 @@ const SearchInput = () => {
         e.preventDefault();
 
         if (values.keyword.trim() === '') {
-            // Handle empty search input here (e.g., show a message).
             return;
         }
 

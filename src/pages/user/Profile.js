@@ -19,11 +19,9 @@ const Profile = () => {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
 
-    // State variables for form validation
     const [passwordValid, setPasswordValid] = useState(true);
     const [phoneValid, setPhoneValid] = useState(true);
 
-    // Validation messages
     const [passwordMessage, setPasswordMessage] = useState("");
     const [phoneMessage, setPhoneMessage] = useState("");
 
@@ -36,13 +34,11 @@ const Profile = () => {
     }, [auth?.user])
 
     const handlePasswordChange = (newPassword) => {
-        // If the password field is empty, use the previous password value
         if (newPassword === "") {
             setPassword(newPassword);
             setPasswordMessage("");
             setPasswordValid(true);
         } else {
-            // Validate the new password
             const passwordRegex = PWD_REGEX;
             setPassword(newPassword);
             setPasswordValid(passwordRegex.test(newPassword));
@@ -55,7 +51,6 @@ const Profile = () => {
     };
 
     const handlePhoneChange = (newPhone) => {
-        // Validate phone number (length of 10 digits)
         const phoneRegex = /^\d{10}$/;
         setPhone(newPhone);
         setPhoneValid(phoneRegex.test(newPhone));
@@ -65,7 +60,6 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if any input is invalid
         if (!passwordValid || !phoneValid) {
             return;
         }

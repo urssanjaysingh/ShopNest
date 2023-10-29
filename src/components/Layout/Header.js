@@ -24,7 +24,6 @@ const Header = () => {
 
     const confirmLogout = () => {
 
-        // Perform logout
         setAuth({
             ...auth,
             user: null,
@@ -44,7 +43,15 @@ const Header = () => {
         <>
             <nav className="navbar navbar-expand-lg bg-light bg-gradient">
                 <div className="container-fluid">
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
                         <i className="fas fa-bars"></i>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -72,8 +79,8 @@ const Header = () => {
                                             <i className="fas fa-list"></i> All Categories
                                         </Link>
                                     </li>
-                                    {categories?.map((c) => (
-                                        <li key={c.id}>
+                                    {categories?.map((c, i) => (
+                                        <li key={i}>
                                             <Link
                                                 className="dropdown-item"
                                                 to={`/category/${c.slug}`}

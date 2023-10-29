@@ -19,10 +19,7 @@ const CartPage = () => {
 
     const totalPrice = () => {
         try {
-            let total = 0
-            cart?.map((item) => {
-                total = total + item.price;
-            });
+            const total = cart?.reduce((acc, item) => acc + item.price, 0);
             const formattedTotal = total.toLocaleString("en-IN", {
                 style: "currency",
                 currency: "INR",
@@ -30,9 +27,9 @@ const CartPage = () => {
             });
             return formattedTotal;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     const removeCartItem = (pid) => {
         try {
@@ -95,30 +92,32 @@ const CartPage = () => {
                 <div className="row">
                     <div className="col-md-8">
                         <div className="row">
-                            {
-                                cart?.map(p => (
-                                    <div className="card mb-3" style={{ maxWidth: 750, paddingLeft: 0 }}>
-                                        <div className="row">
-                                            <div className="col-md-4">
-                                                <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
-                                            </div>
-                                            <div className="col-md-8">
-                                                <div className="card-body mt-3">
-                                                    <p>{p.name}</p>
-                                                    <p>{p.description.substring(0, 30)}</p>
-                                                    <p>Price : ₹{p.price}</p>
-                                                    <button
-                                                        className='btn btn-danger'
-                                                        onClick={() => removeCartItem(p._id)}
-                                                    >
-                                                        Remove
-                                                    </button>
+                            <div className="d-flex flex-wrap fade-in justify-content-center">
+                                {
+                                    cart?.map((p, index) => (
+                                        <div className="card mb-3" style={{ paddingLeft: 0 }} key={index}>
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
+                                                </div>
+                                                <div className="col-md-5">
+                                                    <div className="card-body mt-3">
+                                                        <p>{p.name}</p>
+                                                        <p>{p.description.substring(0, 30)}</p>
+                                                        <p>Price : ₹{p.price}</p>
+                                                        <button
+                                                            className='btn btn-danger'
+                                                            onClick={() => removeCartItem(p._id)}
+                                                        >
+                                                            Remove
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))
-                            }
+                                    ))
+                                }
+                            </div>
                         </div>
                     </div>
                     <div className="col-md-4 text-center">

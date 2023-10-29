@@ -77,7 +77,6 @@ const CreateCategory = () => {
 
     const handleDeleteConfirm = async (confirmed) => {
         if (deleteTarget && confirmed) {
-            // Perform the delete operation here
             try {
                 const { data } = await axios.delete(`${API_URL}/api/v1/category/delete/${deleteTarget._id}`);
                 if (data.success) {
@@ -90,11 +89,9 @@ const CreateCategory = () => {
                 toast.error('Something went wrong');
             }
         }
-        // Close the delete confirmation modal
         hideDeleteModal();
     };
 
-    //get all categories
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/category/get-all`)
@@ -136,8 +133,8 @@ const CreateCategory = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {categories?.map((c) => (
-                                        <tr key={c._id}>
+                                    {categories?.map((c, i) => (
+                                        <tr key={i}>
                                             <td>{c.name}</td>
                                             <td>
                                                 <button

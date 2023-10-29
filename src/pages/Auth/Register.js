@@ -17,12 +17,10 @@ const Register = () => {
     const [address, setAddress] = useState("");
     const [answer, setAnswer] = useState("");
 
-    // State variables for form validation
     const [emailValid, setEmailValid] = useState(true);
     const [passwordValid, setPasswordValid] = useState(true);
     const [phoneValid, setPhoneValid] = useState(true);
 
-    // Validation messages
     const [emailMessage, setEmailMessage] = useState("");
     const [passwordMessage, setPasswordMessage] = useState("");
     const [phoneMessage, setPhoneMessage] = useState("");
@@ -30,7 +28,6 @@ const Register = () => {
     const navigate = useNavigate();
 
     const handleEmailChange = (newEmail) => {
-        // Validate email
         const emailRegex = EMAIL_REGEX;
         setEmail(newEmail);
         setEmailValid(emailRegex.test(newEmail));
@@ -38,7 +35,6 @@ const Register = () => {
     };
 
     const handlePasswordChange = (newPassword) => {
-        // Validate password
         const passwordRegex = PWD_REGEX;
         setPassword(newPassword);
         setPasswordValid(passwordRegex.test(newPassword));
@@ -50,18 +46,15 @@ const Register = () => {
     };
 
     const handlePhoneChange = (newPhone) => {
-        // Validate phone number (length of 10 digits)
         const phoneRegex = /^\d{10}$/;
         setPhone(newPhone);
         setPhoneValid(phoneRegex.test(newPhone));
         setPhoneMessage(phoneRegex.test(newPhone) ? "" : "Phone number must be 10 digits.");
     };
 
-    // form function
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if any input is invalid
         if (!emailValid || !passwordValid || !phoneValid) {
             return;
         }
@@ -89,7 +82,7 @@ const Register = () => {
 
     return (
         <Layout title={"Register"}>
-            <div className="container">
+            <div className="register container">
                 <div className="row justify-content-center">
                     <div className="col-md-4">
                         <div className="rounded p-3 border">
@@ -132,7 +125,6 @@ const Register = () => {
                                         placeholder="Password"
                                         required
                                     />
-                                    {/* Display password validation message */}
                                     {passwordMessage && <div className="invalid-feedback">{passwordMessage}</div>}
                                 </div>
                                 <div className="mb-3">
@@ -146,7 +138,6 @@ const Register = () => {
                                         placeholder="Phone"
                                         required
                                     />
-                                    {/* Display phone validation message */}
                                     {phoneMessage && <div className="invalid-feedback">{phoneMessage}</div>}
                                 </div>
                                 <div className="mb-3">

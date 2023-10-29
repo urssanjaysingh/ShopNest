@@ -24,7 +24,6 @@ const CreateProduct = () => {
 
     const [loading, setLoading] = useState(false);
 
-    //get all categories
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/category/get-all`)
@@ -90,8 +89,8 @@ const CreateProduct = () => {
                                 showSearch
                                 onChange={(value) => { setCategory(value) }}
                             >
-                                {categories?.map(c => (
-                                    <Option key={c._id} value={c._id}>
+                                {categories?.map((c, i) => (
+                                    <Option key={i} value={c._id}>
                                         {c.name}
                                     </Option>
                                 ))}

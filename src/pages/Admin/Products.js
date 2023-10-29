@@ -20,7 +20,6 @@ const Products = () => {
         }
     }
 
-    //lifecycle method
     useEffect(() => {
         getAllProducts()
     }, [])
@@ -33,9 +32,9 @@ const Products = () => {
                 </div>
                 <div className="col-md-9">
                     <h1 className="text-center">All Products List</h1>
-                    <div className="d-flex flex-wrap">
-                        {products?.map(p => (
-                            <Link key={p._id} to={`${p.slug}`} className='product-link'>
+                    <div className="d-flex flex-wrap fade-in justify-content-center">
+                        {products?.map((p, i) => (
+                            <Link key={i} to={`${p.slug}`} className='product-link'>
                                 <div className="card m-2" style={{ width: '18rem' }}>
                                     <img src={p.photo} className="card-img-top" alt={p.name} />
                                     <div className="card-body">

@@ -17,7 +17,6 @@ const ForgotPassword = () => {
     const navigate = useNavigate();
 
     const handlePasswordChange = (newPassword) => {
-        // Validate password
         const passwordRegex = PWD_REGEX;
         setNewPassword(newPassword);
         setPasswordValid(passwordRegex.test(newPassword));
@@ -28,11 +27,9 @@ const ForgotPassword = () => {
         );
     };
 
-    // form function
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if any input is invalid
         if (!passwordValid) {
             return;
         }
@@ -50,7 +47,6 @@ const ForgotPassword = () => {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            // Handle 404 errors (Not Found)
             if (error.response && error.response.status === 404) {
                 toast.error('Invalid email or answer. Please try again.');
             } else {

@@ -14,7 +14,6 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // form function
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -31,13 +30,11 @@ const Login = () => {
                     token: res.data.token
                 })
                 localStorage.setItem('auth', JSON.stringify(res.data));
-                // Introduce a delay before navigating to the home page (e.g., 3 seconds)
-                navigate(location.state || '/');
+               navigate(location.state || '/');
             } else {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            // Handle 404 errors (Not Found)
             if (error.response && error.response.status === 404) {
                 toast.error('Invalid email or password. Please try again.');
             } else {
@@ -49,7 +46,7 @@ const Login = () => {
 
     return (
         <Layout title={"Login"}>
-            <div className="container">
+            <div className="login container">
                 <div className="row justify-content-center align-items-center">
                     <div className="col-md-4">
                         <div className="rounded p-3 border">

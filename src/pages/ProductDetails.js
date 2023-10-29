@@ -71,16 +71,16 @@ const ProductDetails = () => {
                 <div className="row container">
                     <h4>Similar Products</h4>
                     {relatedProducts.length < 1 && <p className="text-center">No Similar Product Found</p>}
-                    <div className="d-flex flex-wrap">
-                        {relatedProducts?.map((p) => (
-                            <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={p._id}>
+                    <div className="d-flex flex-wrap fade-in">
+                        {relatedProducts?.map((p, i) => (
+                            <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={i}>
                                 <img src={p.photo} className="card-img-top product-image" alt={p.name} />
                                 <div className="card-body">
                                     <div className="product-info d-flex align-items-center justify-content-between">
                                         <h5 className="card-title mb-0">{p.name}</h5>
                                         <p className="product-price mb-0 ml-2">₹{p.price}</p>
                                     </div>
-                                    <p className="card-text">{p.description.substring(0, 30)}</p>
+                                    <p className="card-text product-description">{p.description.substring(0, 30)}</p>
                                     <button
                                         className="btn ms-2 btn-warning"
                                         onClick={() => {
