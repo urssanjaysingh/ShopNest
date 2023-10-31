@@ -78,14 +78,8 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                         </div>
-                    </>
-                )}
-                <hr />
-                <div className="row container">
-                    {isLoading ? (
-                        <Spin size="large" />
-                    ) : (
-                        <>
+                        <hr />
+                        <div className="row container">
                             <h4>Similar Products</h4>
                             {relatedProducts.length < 1 && <p className="text-center">No Similar Product Found</p>}
                             <div className="d-flex flex-wrap fade-in">
@@ -121,9 +115,10 @@ const ProductDetails = () => {
                                     </div>
                                 ))}
                             </div>
-                        </>
-                    )}
-                </div>
+
+                        </div>
+                    </>
+                )}
             </div>
         </Layout>
     )
