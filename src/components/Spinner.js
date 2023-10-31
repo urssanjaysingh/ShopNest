@@ -28,6 +28,7 @@ const Spinner = ({ path = 'login' }) => {
     return (
         <div className="d-flex flex-column justify-content-center align-items-center" style={{ height: "100vh" }}>
             <h1 className="text-center">Redirecting to you in {count} second{count !== 1 ? 's' : ''}</h1>
+            <br />
             {count !== 0 ? <Spin size="large" /> : null}
         </div>
     );
