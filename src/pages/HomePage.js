@@ -246,9 +246,7 @@ const HomePage = () => {
                                 disabled={loadingMore || products.length === total}
                             >
                                 {loadingMore ? (
-                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
-                                        <Spin size="large" />
-                                    </div>
+                                    <i className="fas fa-spinner fa-spin"></i>
                                 ) : "Loadmore"}
                             </button>
                         )}
