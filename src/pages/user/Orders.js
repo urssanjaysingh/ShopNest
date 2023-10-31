@@ -71,7 +71,7 @@ const Orders = () => {
                                                                 <div className="col-md-3 d-flex align-items-center justify-content-center">
                                                                     <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
                                                                 </div>
-                                                                <div className="col-md-7">
+                                                                <div className="col-md-9">
                                                                     <div className="card-body mt-3">
                                                                         <p>{p.name}</p>
                                                                         <p className='product-description'>{p.description}</p>

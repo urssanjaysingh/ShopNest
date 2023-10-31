@@ -91,7 +91,7 @@ const AdminOrders = () => {
                       </tbody>
                     </table>
                     <div className="container">
-                      <div className="row d-flex justify-content-center">
+                      <div className="row">
                         {
                           o?.products.map((p, i) => (
                             <div className="card mb-3 border-0 bg-light d-flex justify-content-center" style={{ marginBottom: '20px' }} key={i}>
