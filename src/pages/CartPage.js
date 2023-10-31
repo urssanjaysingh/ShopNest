@@ -95,16 +95,16 @@ const CartPage = () => {
                             <div className="d-flex flex-wrap fade-in justify-content-center">
                                 {
                                     cart?.map((p, index) => (
-                                        <div className="card mb-3" style={{ paddingLeft: 0 }} key={index}>
+                                        <div className="card mb-3 d-flex justify-content-center" style={{ paddingLeft: 0 }} key={index}>
                                             <div className="row">
                                                 <div className="col-md-3 d-flex align-items-center justify-content-center">
                                                     <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
                                                 </div>
                                                 <div className="col-md-5">
                                                     <div className="card-body mt-3">
-                                                        <p>{p.name}</p>
-                                                        <p>{p.description}</p>
-                                                        <p>Price : ₹{p.price}</p>
+                                                        <p className='card-title mb-0'>{p.name}</p>
+                                                        <p className='product-description'>{p.description}</p>
+                                                        <p className='product-price mb-0 ml-2'>Price : ₹{p.price}</p>
                                                         <button
                                                             className='btn btn-danger'
                                                             onClick={() => removeCartItem(p._id)}
