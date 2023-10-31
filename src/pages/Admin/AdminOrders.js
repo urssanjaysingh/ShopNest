@@ -94,20 +94,20 @@ const AdminOrders = () => {
                       <div className="row">
                         {
                           o?.products.map((p, i) => (
-                            <div className="card mb-3 border-0 bg-light" style={{ maxWidth: 420, marginLeft: '45px', paddingLeft: 0, }} key={i}>
+                            <div className="card mb-3 border-0 bg-light d-flex justify-content-center" style={{ marginBottom: '20px' }} key={i}>
                               <div className="row">
-                                <div className="col-md-4 d-flex align-items-center justify-content-center">
-                                  <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
-                                </div>
-                                <div className="col-md-8">
-                                  <div className="card-body mt-3">
-                                    <p>{p.name}</p>
-                                    <p>{p.description.substring(0, 30)}</p>
-                                    <p>Price : ₹{p.price}</p>
+                                  <div className="col-md-3 d-flex align-items-center justify-content-center">
+                                      <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
                                   </div>
-                                </div>
+                                  <div className="col-md-7">
+                                      <div className="card-body mt-3">
+                                          <p>{p.name}</p>
+                                          <p className='product-description'>{p.description}</p>
+                                          <p>Price : ₹{p.price}</p>
+                                      </div>
+                                  </div>
                               </div>
-                            </div>
+                          </div>
                           ))
                         }
                       </div>
