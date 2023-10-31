@@ -73,9 +73,9 @@ const Orders = () => {
                                                                 </div>
                                                                 <div className="col-md-8">
                                                                     <div className="card-body mt-3">
-                                                                        <p className='card-title mb-0'>{p.name}</p>
+                                                                        <p>{p.name}</p>
                                                                         <p className='product-description'>{p.description}</p>
-                                                                        <p className='product-price mb-0 ml-2'>Price : ₹{p.price}</p>
+                                                                        <p>Price : ₹{p.price}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>

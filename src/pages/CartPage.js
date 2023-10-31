@@ -102,9 +102,9 @@ const CartPage = () => {
                                                 </div>
                                                 <div className="col-md-5">
                                                     <div className="card-body mt-3">
-                                                        <p className='card-title mb-0'>{p.name}</p>
+                                                        <p>{p.name}</p>
                                                         <p className='product-description'>{p.description}</p>
-                                                        <p className='product-price mb-0 ml-2'>Price : ₹{p.price}</p>
+                                                        <p>Price : ₹{p.price}</p>
                                                         <button
                                                             className='btn btn-danger'
                                                             onClick={() => removeCartItem(p._id)}
