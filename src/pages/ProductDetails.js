@@ -84,7 +84,7 @@ const ProductDetails = () => {
                         </div>
                         <hr />
                         <div className="col-md-12">
-                            <h4>Similar Products</h4>
+                                <h4 className="text-center">Similar Products</h4>
                             {isLoadingRelated ? (
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Spin size="large" />
