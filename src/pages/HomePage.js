@@ -194,7 +194,7 @@ const HomePage = () => {
                     {noMatchingProducts ? (
                         <div className="text-center">No products match the selected filters.</div>
                     ) : loading ? (
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', minHeight: '50vh' }}>
                             <Spin size="large" />
                         </div>
                     ) : products.length === 0 ? (
