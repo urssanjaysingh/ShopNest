@@ -91,23 +91,23 @@ const AdminOrders = () => {
                       </tbody>
                     </table>
                     <div className="container">
-                      <div className="row">
+                      <div className="row d-flex justify-content-center">
                         {
                           o?.products.map((p, i) => (
                             <div className="card mb-3 border-0 bg-light d-flex justify-content-center" style={{ marginBottom: '20px' }} key={i}>
                               <div className="row">
-                                  <div className="col-md-3 d-flex align-items-center justify-content-center">
-                                      <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
+                                <div className="col-md-3 d-flex align-items-center justify-content-center">
+                                  <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
+                                </div>
+                                <div className="col-md-9">
+                                  <div className="card-body mt-3">
+                                    <p>{p.name}</p>
+                                    <p className='product-description'>{p.description}</p>
+                                    <p>Price : ₹{p.price}</p>
                                   </div>
-                                  <div className="col-md-9">
-                                      <div className="card-body mt-3">
-                                          <p>{p.name}</p>
-                                          <p className='product-description'>{p.description}</p>
-                                          <p>Price : ₹{p.price}</p>
-                                      </div>
-                                  </div>
+                                </div>
                               </div>
-                          </div>
+                            </div>
                           ))
                         }
                       </div>
