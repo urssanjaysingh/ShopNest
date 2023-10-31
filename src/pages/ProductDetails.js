@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/cart'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Spin } from 'antd';
 
 const ProductDetails = () => {
     const params = useParams()
@@ -46,7 +47,7 @@ const ProductDetails = () => {
         <Layout title={"Product Details"}>
             <div className="container">
                 {isLoading ? (
-                    <p>Loading...</p>
+                    <Spin size="large" />
                 ) : (
                     <>
                         <div className="row product mt-4 mb-4">
@@ -79,41 +80,47 @@ const ProductDetails = () => {
                 )}
                 <hr />
                 <div className="row container">
-                    <h4>Similar Products</h4>
-                    {relatedProducts.length < 1 && <p className="text-center">No Similar Product Found</p>}
-                    <div className="d-flex flex-wrap fade-in">
-                        {relatedProducts?.map((p, i) => (
-                            <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={i}>
-                                <img src={p.photo} className="card-img-top product-image" alt={p.name} />
-                                <div className="card-body">
-                                    <div className="product-info d-flex align-items-center justify-content-between">
-                                        <h5 className="card-title mb-0">{p.name}</h5>
-                                        <p className="product-price mb-0 ml-2">₹{p.price}</p>
+                    {isLoading ? (
+                        <Spin size="large" />
+                    ) : (
+                        <>
+                            <h4>Similar Products</h4>
+                            {relatedProducts.length < 1 && <p className="text-center">No Similar Product Found</p>}
+                            <div className="d-flex flex-wrap fade-in">
+                                {relatedProducts?.map((p, i) => (
+                                    <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={i}>
+                                        <img src={p.photo} className="card-img-top product-image" alt={p.name} />
+                                        <div className="card-body">
+                                            <div className="product-info d-flex align-items-center justify-content-between">
+                                                <h5 className="card-title mb-0">{p.name}</h5>
+                                                <p className="product-price mb-0 ml-2">₹{p.price}</p>
+                                            </div>
+                                            <p className="card-text product-description">{p.description.substring(0, 30)}</p>
+                                            <button
+                                                className="btn ms-2 btn-warning"
+                                                onClick={() => {
+                                                    setCart([...cart, p])
+                                                    localStorage.setItem(
+                                                        "cart",
+                                                        JSON.stringify([...cart, p])
+                                                    );
+                                                    toast.success('Item Added to Cart')
+                                                }}
+                                            >
+                                                Add To Cart
+                                            </button>
+                                            <button
+                                                className="btn btn-info ms-2"
+                                                onClick={() => navigate(`/product/${p.slug}`)}
+                                            >
+                                                More Details
+                                            </button>
+                                        </div>
                                     </div>
-                                    <p className="card-text product-description">{p.description.substring(0, 30)}</p>
-                                    <button
-                                        className="btn ms-2 btn-warning"
-                                        onClick={() => {
-                                            setCart([...cart, p])
-                                            localStorage.setItem(
-                                                "cart",
-                                                JSON.stringify([...cart, p])
-                                            );
-                                            toast.success('Item Added to Cart')
-                                        }}
-                                    >
-                                        Add To Cart
-                                    </button>
-                                    <button
-                                        className="btn btn-info ms-2"
-                                        onClick={() => navigate(`/product/${p.slug}`)}
-                                    >
-                                        More Details
-                                    </button>
-                                </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
                 </div>
             </div>
         </Layout>
