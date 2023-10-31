@@ -97,7 +97,7 @@ const CartPage = () => {
                                     cart?.map((p, index) => (
                                         <div className="card mb-3 d-flex justify-content-center" style={{ paddingLeft: 0 }} key={index}>
                                             <div className="row">
-                                                <div className="col-md-1 d-flex align-items-center justify-content-center">
+                                                <div className="col-md-3 d-flex align-items-center justify-content-center">
                                                     <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
                                                 </div>
                                                 <div className="col-md-7">
