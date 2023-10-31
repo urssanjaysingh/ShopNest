@@ -83,7 +83,7 @@ const ProductDetails = () => {
                             </div>
                         </div>
                         <hr />
-                        <div className="row container">
+                        <div className="col-md-12">
                             <h4>Similar Products</h4>
                             {isLoadingRelated ? (
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -92,7 +92,7 @@ const ProductDetails = () => {
                             ) : relatedProducts.length < 1 ? (
                                 <p className="text-center">No Similar Product Found</p>
                             ) : (
-                                <div className="d-flex flex-wrap fade-in">
+                                <div className="d-flex flex-wrap fade-in justify-content-center">
                                     {relatedProducts?.map((p, i) => (
                                         <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={i}>
                                             <img src={p.photo} className="card-img-top product-image" alt={p.name} />
