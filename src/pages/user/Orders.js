@@ -73,9 +73,9 @@ const Orders = () => {
                                                                 </div>
                                                                 <div className="col-md-9">
                                                                     <div className="card-body mt-3">
-                                                                        <p>{p.name}</p>
+                                                                        <p style={{ margin: 0, fontWeight: 'bold' }}>{p.name}</p>
                                                                         <p className='product-description'>{p.description}</p>
-                                                                        <p>Price : ₹{p.price}</p>
+                                                                        <p style={{ fontWeight: 'bold', color: 'orange' }}>Price: ₹{p.price}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
