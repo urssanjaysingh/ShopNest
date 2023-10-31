@@ -66,12 +66,12 @@ const Orders = () => {
                                             <div className="row">
                                                 {
                                                     o?.products.map((p, i) => (
-                                                        <div className="card mb-3 border-0 bg-light d-flex justify-content-center" style={{ maxWidth: 420, marginBottom: '20px' }} key={i}>
+                                                        <div className="card mb-3 border-0 bg-light d-flex justify-content-center" style={{ marginBottom: '20px' }} key={i}>
                                                             <div className="row">
-                                                                <div className="col-md-4 d-flex align-items-center justify-content-center">
+                                                                <div className="col-md-1 d-flex align-items-center justify-content-center">
                                                                     <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
                                                                 </div>
-                                                                <div className="col-md-8">
+                                                                <div className="col-md-7">
                                                                     <div className="card-body mt-3">
                                                                         <p>{p.name}</p>
                                                                         <p className='product-description'>{p.description}</p>
