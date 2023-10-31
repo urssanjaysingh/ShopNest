@@ -99,7 +99,7 @@ const AdminOrders = () => {
                                 <div className="col-md-3 d-flex align-items-center justify-content-center">
                                   <img src={p.photo} className="img-fluid rounded-start" alt={p.name} />
                                 </div>
-                                <div className="col-md-9">
+                                <div className="col-md-9 d-flex align-items-center justify-content-center">
                                   <div className="card-body mt-3">
                                     <p style={{ margin: 0, fontWeight: 'bold' }}>{p.name}</p>
                                     <p className='product-description'>{p.description}</p>
