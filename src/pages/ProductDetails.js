@@ -47,7 +47,9 @@ const ProductDetails = () => {
         <Layout title={"Product Details"}>
             <div className="container">
                 {isLoading ? (
-                    <Spin size="large" />
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+                        <Spin size="large" />
+                    </div>
                 ) : (
                     <>
                         <div className="row product mt-4 mb-4">

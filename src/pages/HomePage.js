@@ -8,6 +8,7 @@ import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/Prices';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cart'
+import { Spin } from 'antd';
 
 const HomePage = () => {
     const navigate = useNavigate()
@@ -193,11 +194,8 @@ const HomePage = () => {
                     {noMatchingProducts ? (
                         <div className="text-center">No products match the selected filters.</div>
                     ) : loading ? (
-                        <div className="text-center">
-                            <div className="spinner-border text-primary" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <p>Loading products...</p>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+                            <Spin size="large" />
                         </div>
                     ) : products.length === 0 ? (
                         <div className="text-center">No products available.</div>
