@@ -37,10 +37,13 @@ const ProductDetails = () => {
 
     const getSimilarProduct = async (pid, cid) => {
         try {
+            setIsLoadingRelated(true);
             const { data } = await axios.get(`${API_URL}/api/v1/product/related-product/${pid}/${cid}`)
             setRelatedProducts(data?.products)
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoadingRelated(false);
         }
     }
 
