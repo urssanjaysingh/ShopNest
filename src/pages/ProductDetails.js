@@ -6,21 +6,14 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/cart'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { css } from '@emotion/react'
-import { SyncLoader } from 'react-spinners'
 
 const ProductDetails = () => {
-
-    const override = css`
-    display: block;
-    margin: 0 auto;
-    `
-
     const params = useParams()
     const navigate = useNavigate()
     const [cart, setCart] = useCart()
     const [product, setProduct] = useState({})
     const [relatedProducts, setRelatedProducts] = useState([])
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (params?.slug) getProduct()
@@ -28,12 +21,15 @@ const ProductDetails = () => {
     }, [params?.slug])
 
     const getProduct = async () => {
+        setIsLoading(true);
         try {
             const { data } = await axios.get(`${API_URL}/api/v1/product/get/${params.slug}`)
             setProduct(data?.product)
             getSimilarProduct(data?.product._id, data?.product.category._id)
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -49,38 +45,37 @@ const ProductDetails = () => {
     return (
         <Layout title={"Product Details"}>
             <div className="container">
-                {product ? (
-                    <div className="row product mt-4 mb-4">
-                        <div className="col-md-6" style={{ width: '28rem' }}>
-                            <img src={product.photo} className="img-fluid" alt={product.name} />
-                        </div>
-                        <div className="col-md-6 d-flex align-items-center justify-content-center">
-                            <div>
-                                <h2 className="main-product-title">{product.name}</h2>
-                                <p className="product-description">{product.description}</p>
-                                <h3 className="product-price">Price: ₹{product.price}</h3>
-                                <h6 className='product-category'>Category: {product?.category?.name}</h6>
-                                <button
-                                    className="btn ms-2 product-button"
-                                    onClick={() => {
-                                        setCart([...cart, product])
-                                        localStorage.setItem(
-                                            "cart",
-                                            JSON.stringify([...cart, product])
-                                        );
-                                        toast.success('Item Added to Cart')
-                                    }}
-                                >
-                                    Add to Cart <i className="fas fa-shopping-cart me-1"></i>
-                                </button>
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <>
+                        <div className="row product mt-4 mb-4">
+                            <div className="col-md-6" style={{ width: '28rem' }} >
+                                <img src={product.photo} className="img-fluid" alt={product.name} />
+                            </div>
+                            <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                <div>
+                                    <h2 className="main-product-title">{product.name}</h2>
+                                    <p className="product-description">{product.description}</p>
+                                    <h3 className="product-price">Price: ₹{product.price}</h3>
+                                    <h6 className='product-category'>Category: {product?.category?.name}</h6>
+                                    <button
+                                        className="btn ms-2 product-button"
+                                        onClick={() => {
+                                            setCart([...cart, product])
+                                            localStorage.setItem(
+                                                "cart",
+                                                JSON.stringify([...cart, product])
+                                            );
+                                            toast.success('Item Added to Cart')
+                                        }}
+                                    >
+                                        Add to Cart <i className="fas fa-shopping-cart me-1"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ) : (
-                    <div className="text-center">
-                        <SyncLoader css={override} size={10} color={'#36D7B7'} />
-                        <p>Loading...</p>
-                    </div>
+                    </>
                 )}
                 <hr />
                 <div className="row container">
