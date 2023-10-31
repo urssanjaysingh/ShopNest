@@ -31,35 +31,37 @@ const Orders = () => {
                     <div className="col-md-3">
                         <UserMenu />
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-9 d-flex justify-content-center">
                         <h1 className='text-center'>All Orders</h1>
                         {
                             orders?.map((o, i) => {
                                 return (
                                     <div className="border-0 order-container" key={i}>
                                         <hr className='mb-0' />
-                                        <table className="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th scope='col'>#</th>
-                                                    <th scope='col'>Status</th>
-                                                    <th scope='col'>Buyer</th>
-                                                    <th scope='col'>Date</th>
-                                                    <th scope='col'>Payment</th>
-                                                    <th scope='col'>Quantity</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{i + 1}</td>
-                                                    <td>{o?.status}</td>
-                                                    <td>{o?.buyer?.name}</td>
-                                                    <td>{moment(o?.createdAt).fromNow()}</td>
-                                                    <td>{o?.payment?.success ? "Success" : "Failed"}</td>
-                                                    <td>{o?.products?.length}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div className="table-responsive">
+                                            <table className="table table-striped">
+                                                <thead className="table-header">
+                                                    <tr>
+                                                        <th scope='col'>#</th>
+                                                        <th scope='col'>Status</th>
+                                                        <th scope='col'>Buyer</th>
+                                                        <th scope='col'>Date</th>
+                                                        <th scope='col'>Payment</th>
+                                                        <th scope='col'>Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{i + 1}</td>
+                                                        <td>{o?.status}</td>
+                                                        <td>{o?.buyer?.name}</td>
+                                                        <td>{moment(o?.createdAt).fromNow()}</td>
+                                                        <td>{o?.payment?.success ? "Success" : "Failed"}</td>
+                                                        <td>{o?.products?.length}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         <div className="container">
                                             <div className="row">
                                                 {
