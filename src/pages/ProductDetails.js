@@ -67,7 +67,7 @@ const ProductDetails = () => {
                                     <h3 className="product-price">Price: ₹{product.price}</h3>
                                     <h6 className='product-category'>Category: {product?.category?.name}</h6>
                                     <button
-                                        className="btn ms-2 product-button"
+                                        className="btn product-button"
                                         onClick={() => {
                                             setCart([...cart, product])
                                             localStorage.setItem(
