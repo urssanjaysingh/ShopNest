@@ -52,10 +52,13 @@ const ProductDetails = () => {
             <div className="container">
                 <h1 className="text-center">Product Details</h1>
                 <hr />
-                <div className="col-md-12">
+                <div className="col-md-12" style={{ position: 'relative', minHeight: '100px' }}>
                     {isLoading ? (
                         <div style={{
-                            display: 'flex', justifyContent: 'center', alignItems: 'center'
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
                         }}>
                             <Spin size="large" />
                         </div>
