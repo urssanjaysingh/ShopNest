@@ -50,87 +50,90 @@ const ProductDetails = () => {
     return (
         <Layout title={"Product Details"}>
             <div className="container">
-                {isLoading ? (
-                    <div style={{
-                        display: 'flex', justifyContent: 'center', alignItems: 'center'
-                    }}>
-                        <Spin size="large" />
-                    </div>
-                ) : (
-                    <>
-                        <div className="row product mt-4 mb-4">
-                            <div className="col-md-6" style={{ width: '28rem' }} >
-                                <img src={product.photo} className="img-fluid" alt={product.name} />
-                            </div>
-                            <div className="col-md-6 d-flex align-items-center justify-content-center">
-                                <div>
-                                    <h2 className="main-product-title">{product.name}</h2>
-                                    <p className="product-description">{product.description}</p>
-                                    <h3 className="product-price">Price: ₹{product.price}</h3>
-                                    <h6 className='product-category'>Category: {product?.category?.name}</h6>
-                                    <button
-                                        className="btn product-button"
-                                        onClick={() => {
-                                            setCart([...cart, product])
-                                            localStorage.setItem(
-                                                "cart",
-                                                JSON.stringify([...cart, product])
-                                            );
-                                            toast.success('Item Added to Cart')
-                                        }}
-                                    >
-                                        Add to Cart <i className="fas fa-shopping-cart me-1"></i>
-                                    </button>
-                                </div>
-                            </div>
+                <h1 className="text-center">Product Details</h1>
+                <div className="col-md-12">
+                    {isLoading ? (
+                        <div style={{
+                            display: 'flex', justifyContent: 'center', alignItems: 'center'
+                        }}>
+                            <Spin size="large" />
                         </div>
-                        <hr />
-                        <div className="col-md-12">
-                            <h4 className="text-center">Similar Products</h4>
-                            {isLoadingRelated ? (
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Spin size="large" />
+                    ) : (
+                        <>
+                            <div className="row product mt-4 mb-4">
+                                <div className="col-md-6" style={{ width: '28rem' }} >
+                                    <img src={product.photo} className="img-fluid" alt={product.name} />
                                 </div>
-                            ) : relatedProducts.length < 1 ? (
-                                <p className="text-center">No Similar Product Found</p>
-                            ) : (
-                                <div className="d-flex flex-wrap fade-in justify-content-center">
-                                    {relatedProducts?.map((p, i) => (
-                                        <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={i}>
-                                            <img src={p.photo} className="card-img-top product-image" alt={p.name} />
-                                            <div className="card-body">
-                                                <div className="product-info d-flex align-items-center justify-content-between">
-                                                    <h5 className="card-title mb-0">{p.name}</h5>
-                                                    <p className="product-price mb-0 ml-2">₹{p.price}</p>
+                                <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <h2 className="main-product-title">{product.name}</h2>
+                                        <p className="product-description">{product.description}</p>
+                                        <h3 className="product-price">Price: ₹{product.price}</h3>
+                                        <h6 className='product-category'>Category: {product?.category?.name}</h6>
+                                        <button
+                                            className="btn product-button"
+                                            onClick={() => {
+                                                setCart([...cart, product])
+                                                localStorage.setItem(
+                                                    "cart",
+                                                    JSON.stringify([...cart, product])
+                                                );
+                                                toast.success('Item Added to Cart')
+                                            }}
+                                        >
+                                            Add to Cart <i className="fas fa-shopping-cart me-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div className="col-md-12">
+                                <h4 className="text-center">Similar Products</h4>
+                                {isLoadingRelated ? (
+                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <Spin size="large" />
+                                    </div>
+                                ) : relatedProducts.length < 1 ? (
+                                    <p className="text-center">No Similar Product Found</p>
+                                ) : (
+                                    <div className="d-flex flex-wrap fade-in justify-content-center">
+                                        {relatedProducts?.map((p, i) => (
+                                            <div className="card product-card m-2 bg-light" style={{ width: '18rem' }} key={i}>
+                                                <img src={p.photo} className="card-img-top product-image" alt={p.name} />
+                                                <div className="card-body">
+                                                    <div className="product-info d-flex align-items-center justify-content-between">
+                                                        <h5 className="card-title mb-0">{p.name}</h5>
+                                                        <p className="product-price mb-0 ml-2">₹{p.price}</p>
+                                                    </div>
+                                                    <p className="card-text product-description">{p.description.substring(0, 30)}</p>
+                                                    <button
+                                                        className="btn ms-2 btn-warning"
+                                                        onClick={() => {
+                                                            setCart([...cart, p])
+                                                            localStorage.setItem(
+                                                                "cart",
+                                                                JSON.stringify([...cart, p])
+                                                            );
+                                                            toast.success('Item Added to Cart')
+                                                        }}
+                                                    >
+                                                        Add To Cart
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-info ms-2"
+                                                        onClick={() => navigate(`/product/${p.slug}`)}
+                                                    >
+                                                        More Details
+                                                    </button>
                                                 </div>
-                                                <p className="card-text product-description">{p.description.substring(0, 30)}</p>
-                                                <button
-                                                    className="btn ms-2 btn-warning"
-                                                    onClick={() => {
-                                                        setCart([...cart, p])
-                                                        localStorage.setItem(
-                                                            "cart",
-                                                            JSON.stringify([...cart, p])
-                                                        );
-                                                        toast.success('Item Added to Cart')
-                                                    }}
-                                                >
-                                                    Add To Cart
-                                                </button>
-                                                <button
-                                                    className="btn btn-info ms-2"
-                                                    onClick={() => navigate(`/product/${p.slug}`)}
-                                                >
-                                                    More Details
-                                                </button>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </>
-                )}
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
         </Layout >
     )
