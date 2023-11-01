@@ -166,7 +166,7 @@ const HomePage = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-2 ms-2">
                                 <h5 className="mt-4">Prices</h5>
                                 <div className="radio-group">
                                     {Prices?.map((p, i) => (
