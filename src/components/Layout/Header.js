@@ -73,16 +73,16 @@ const Header = () => {
                                 >
                                     <i className="fas fa-list"></i> Categories
                                 </Link>
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu bg-light">
                                     <li>
-                                        <Link className='dropdown-item bg-light' to={"/categories"}>
+                                        <Link className='dropdown-item' to={"/categories"}>
                                             <i className="fas fa-list"></i> All Categories
                                         </Link>
                                     </li>
                                     {categories?.map((c, i) => (
                                         <li key={i}>
                                             <Link
-                                                className="dropdown-item bg-light"
+                                                className="dropdown-item"
                                                 to={`/category/${c.slug}`}
                                             >
                                                 <i className="fas fa-folder"></i> {c.name}
@@ -103,7 +103,7 @@ const Header = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <li className="nav-item dropdown">
+                                        <li className="nav-item dropdown bg-light">
                                             <NavLink className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i className="fas fa-user"></i> {auth?.user?.name}
                                             </NavLink>
