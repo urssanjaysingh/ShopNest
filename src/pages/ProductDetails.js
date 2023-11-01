@@ -51,7 +51,7 @@ const ProductDetails = () => {
         <Layout title={"Product Details"}>
             <div className="container">
                 {isLoading ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Spin size="large" />
                     </div>
                 ) : (
