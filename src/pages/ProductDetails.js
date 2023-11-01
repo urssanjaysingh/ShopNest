@@ -51,6 +51,7 @@ const ProductDetails = () => {
         <Layout title={"Product Details"}>
             <div className="container">
                 <h1 className="text-center">Product Details</h1>
+                <hr />
                 <div className="col-md-12">
                     {isLoading ? (
                         <div style={{
