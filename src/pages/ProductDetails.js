@@ -52,7 +52,7 @@ const ProductDetails = () => {
             <div className="container">
                 {isLoading ? (
                     <div style={{
-                        display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative',
+                        display: 'flex', justifyContent: 'center', position: 'relative',
                         minHeight: '100px'
                     }}>
                         <Spin size="large" />
