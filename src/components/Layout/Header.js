@@ -103,11 +103,11 @@ const Header = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <li className="nav-item dropdown bg-light">
+                                        <li className="nav-item dropdown">
                                             <NavLink className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i className="fas fa-user"></i> {auth?.user?.name}
                                             </NavLink>
-                                            <ul className="dropdown-menu">
+                                                <ul className="dropdown-menu bg-light">
                                                 <li><NavLink to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : 'user'}`} className="dropdown-item" ><i className="fas fa-tachometer-alt"></i> Dashboard</NavLink></li>
                                                 <li>
                                                     <span className="dropdown-item nav-link-logout" onClick={handleLogout}><i className="fas fa-sign-out-alt"></i> Logout</span>
