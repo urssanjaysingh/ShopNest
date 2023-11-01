@@ -51,7 +51,7 @@ const ProductDetails = () => {
         <Layout title={"Product Details"}>
             <div className="container">
                 {isLoading ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Spin size="large" />
                     </div>
                 ) : (
@@ -86,7 +86,7 @@ const ProductDetails = () => {
                         <div className="col-md-12">
                                 <h4 className="text-center">Similar Products</h4>
                             {isLoadingRelated ? (
-                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <Spin size="large" />
                                 </div>
                             ) : relatedProducts.length < 1 ? (
