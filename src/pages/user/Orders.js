@@ -32,7 +32,7 @@ const Orders = () => {
                         <UserMenu />
                     </div>
                     <div className="col-md-9">
-                        <h1 className='text-center'>All Orders</h1>
+                        <h1 className='text-center mb-3'>All Orders</h1>
                         {
                             orders?.map((o, i) => {
                                 return (

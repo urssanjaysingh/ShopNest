@@ -56,7 +56,7 @@ const AdminOrders = () => {
                   <div className="border-0 order-container" key={i}>
                     <hr className='mb-0' />
                     <table className="table table-striped">
-                      <thead>
+                      <thead className="table-header">
                         <tr>
                           <th scope='col'>#</th>
                           <th scope='col'>Status</th>
