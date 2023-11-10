@@ -55,41 +55,43 @@ const AdminOrders = () => {
                 return (
                   <div className="border-0 order-container" key={i}>
                     <hr className='mb-0' />
-                    <table className="table table-striped">
-                      <thead className="table-header">
-                        <tr>
-                          <th scope='col'>#</th>
-                          <th scope='col'>Status</th>
-                          <th scope='col'>Buyer</th>
-                          <th scope='col'>Date</th>
-                          <th scope='col'>Payment</th>
-                          <th scope='col'>Quantity</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{i + 1}</td>
-                          <td>
-                            <Select
-                              bordered={false}
-                              onChange={(value) => handleChange(o._id, value)}
-                              defaultValue={o?.status}
-                              style={{ width: 120 }}
-                            >
-                              {status.map((s, i) => (
-                                <option key={i} value={s}>
-                                  {s}
-                                </option>
-                              ))}
-                            </Select>
-                          </td>
-                          <td>{o?.buyer?.name}</td>
-                          <td>{moment(o?.createdAt).fromNow()}</td>
-                          <td>{o?.payment?.success ? "Success" : "Failed"}</td>
-                          <td>{o?.products?.length}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div className="table-responsive">
+                      <table className="table table-striped">
+                        <thead className="table-header">
+                          <tr>
+                            <th scope='col'>#</th>
+                            <th scope='col'>Status</th>
+                            <th scope='col'>Buyer</th>
+                            <th scope='col'>Date</th>
+                            <th scope='col'>Payment</th>
+                            <th scope='col'>Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{i + 1}</td>
+                            <td>
+                              <Select
+                                bordered={false}
+                                onChange={(value) => handleChange(o._id, value)}
+                                defaultValue={o?.status}
+                                style={{ width: 120 }}
+                              >
+                                {status.map((s, i) => (
+                                  <option key={i} value={s}>
+                                    {s}
+                                  </option>
+                                ))}
+                              </Select>
+                            </td>
+                            <td>{o?.buyer?.name}</td>
+                            <td>{moment(o?.createdAt).fromNow()}</td>
+                            <td>{o?.payment?.success ? "Success" : "Failed"}</td>
+                            <td>{o?.products?.length}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                     <div className="container">
                       <div className="row">
                         {
